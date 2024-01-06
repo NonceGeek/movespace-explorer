@@ -37,7 +37,7 @@ const ETHSpace: NextPage = () => {
   //仅在组件挂载时执行一次获取数据集列表
 
   // new feature
-  const handleEnterPress = (event: { key: string; }) => {
+  const handleEnterPress = (event: { key: string }) => {
     if (event.key === "Enter") {
       console.log("Enter Enter Key! ");
       handleonClick();
@@ -179,16 +179,16 @@ const ETHSpace: NextPage = () => {
     }
   };
   return (
-    <div className="grid lg:grid-cols-2 flex-grow">
+    <div className="grid flex-grow lg:grid-cols-2">
       {/* <audio ref={audioRef} src="/assets/egg.mp3" preload="metadata" /> */}
-      <div className="hero min-h-screen bg-base-200 bg-gradient-to-r from-green-500 to-blue-500">
-        <div className="hero-content text-center">
+      <div className="min-h-screen hero bg-base-200 bg-gradient-to-r from-green-500 to-blue-500">
+        <div className="text-center hero-content">
           <div className="max-w-md">
             <h1 className="text-2xl font-bold">🔎🤠 MoveSpace AI Explorer</h1>
             <p className="py-6">
               -- Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.{" "}
             </p>
-            <div className="join mb-6">
+            <div className="mb-6 join">
               <div>
                 <div>
                   {/* <button onClick={playMusic}>play music</button> */}
@@ -243,7 +243,7 @@ const ETHSpace: NextPage = () => {
                 </button>
               </div>
             </div>
-            <div className="hero-content text-left">
+            <div className="text-left hero-content">
               {/* <span className="text-sm">
                 <p>
                   <b>Some search question examples: </b>
@@ -254,31 +254,31 @@ const ETHSpace: NextPage = () => {
               </span> */}
             </div>
             {/* <a href="https://bodhi.wtf/10586" target="_blank" rel="noreferrer">
-              <button className="w-96 bg-white hover:bg-gray-100 text-gray-800 py-2 px-5 border border-gray-400 rounded shadow">
+              <button className="px-5 py-2 text-gray-800 bg-white border border-gray-400 rounded shadow w-96 hover:bg-gray-100">
                 🤑 <b>Buy</b> shares to support explorer!
               </button>
             </a>
             <br></br>
             <a href="https://bodhi.wtf/13663" target="_blank" rel="noreferrer">
-              <button className="w-96 bg-white hover:bg-gray-100 text-gray-800 py-2 px-5 border border-gray-400 rounded shadow">
+              <button className="px-5 py-2 text-gray-800 bg-white border border-gray-400 rounded shadow w-96 hover:bg-gray-100">
                 📝 Blog for Explorer<b>(See the future plan)</b>
               </button>
             </a>
             <br></br>
             <a href="https://explorer.movespace.xyz" target="_blank" rel="noreferrer">
-              <button className="w-96 bg-white hover:bg-gray-100 text-gray-800 py-2 px-5 border border-gray-400 rounded shadow">
+              <button className="px-5 py-2 text-gray-800 bg-white border border-gray-400 rounded shadow w-96 hover:bg-gray-100">
                 <b>🛝 Go to MoveSpace Explorer</b>
               </button>
             </a>
             <br></br>
             <a href="https://random-hacker.deno.dev/" target="_blank" rel="noreferrer">
-            <button className="w-96 bg-white hover:bg-gray-100 text-gray-800 py-2 px-5 border border-gray-400 rounded shadow">
+            <button className="px-5 py-2 text-gray-800 bg-white border border-gray-400 rounded shadow w-96 hover:bg-gray-100">
               👽 A Random <b>Indie Hacker</b>
             </button>
             </a>
             <br></br> */}
             <a href="https://twitter.com/movespacexyz" target="_blank" rel="noreferrer">
-              <button className="w-96 bg-white hover:bg-gray-100 text-gray-800 py-2 px-5 border border-gray-400 rounded shadow">
+              <button className="px-5 py-2 text-gray-800 bg-white border border-gray-400 rounded shadow w-96 hover:bg-gray-100">
                 ❤️ Follow my twitter! ❤️
               </button>
             </a>
@@ -287,10 +287,10 @@ const ETHSpace: NextPage = () => {
       </div>
       <div className="bg-gradient-to-r from-blue-500 to-green-500">
         <div className="mx-auto w-4/5 max-h-[600px] backdrop-blur-lg backdrop-filter p-10 m-10 rounded-lg opacity-80 shadow-md overflow-auto overflow-y-auto">
-          <h2 className="text-4xl font-bold mb-1">Search Results</h2>
+          <h2 className="mb-1 text-4xl font-bold">Search Results</h2>
           <div>
             {res.map((r, index) => (
-              <div key={index} className="collapse collapse-open bg-base-200 m-5 overflow-x-auto">
+              <div key={index} className="m-5 overflow-x-auto collapse collapse-open bg-base-200">
                 <input type="checkbox" className="peer" />
                 <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
                   Results from {dataset}
@@ -340,7 +340,6 @@ const ETHSpace: NextPage = () => {
                           </pre>
                           <br></br>
                         </div>
-
                       ) : (
                         <div>
                           <span className="text-xl">Metadata</span>
