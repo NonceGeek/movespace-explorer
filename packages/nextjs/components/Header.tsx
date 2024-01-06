@@ -47,7 +47,7 @@ export const HeaderMenuLinks = () => {
               href={href}
               passHref
               className={`${isActive ? "bg-secondary shadow-md" : ""
-              } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
+                } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
             >
               {icon}
               <span>{label}</span>
@@ -71,8 +71,12 @@ export const Header = () => {
   );
 
   return (
-    <div className="sticky lg:static top-0 navbar bg-base-100 min-h-0 flex-shrink-0 justify-between z-20 shadow-md shadow-secondary px-0 sm:px-2">
-      <div className="navbar-start w-auto lg:w-1/2">
+    <div
+      className="w-[1280px] mx-auto flex justify-between items-center bg-white py-4 px-[29px]"
+      style={{
+        boxShadow: '0px 16px 60px 0px #00000008',
+      }}>
+      <div className="hidden w-auto navbar-start lg:w-1/2">
         <div className="lg:hidden dropdown" ref={burgerMenuRef}>
           <label
             tabIndex={0}
@@ -95,20 +99,18 @@ export const Header = () => {
             </ul>
           )}
         </div>
-        <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-10 h-10">
-            <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold leading-tight">MoveSpace AI Explorer</span>
-            <span className="text-xs">Search and Tag Vector Data in the MoveSpace, powered by AI.</span>
-          </div>
-        </Link>
-        <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">
-          <HeaderMenuLinks />
-        </ul>
       </div>
-      <div className="navbar-end flex-grow mr-4">
+      <Image alt="nav-icon" className="cursor-pointer" width={18} height={15} src="/svg/nav.svg" />
+      <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
+        <div className="flex flex-col">
+          <span className="font-bold leading-tight">MoveSpace AI Explorer</span>
+          <span className="text-xs">Search and Tag Vector Data in the MoveSpace, powered by AI.</span>
+        </div>
+      </Link>
+      <ul className="hidden gap-2 px-1 lg:flex lg:flex-nowrap menu menu-horizontal">
+        <HeaderMenuLinks />
+      </ul>
+      <div className="flex-grow mr-4 navbar-end">
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>
