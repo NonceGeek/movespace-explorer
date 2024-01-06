@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { QRCodeSVG } from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { useDarkMode } from "usehooks-ts";
 import { useDisconnect, useSwitchNetwork } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
@@ -25,6 +26,7 @@ export const RainbowKitCustomConnectButton = () => {
   const configuredNetwork = getTargetNetwork();
   const { disconnect } = useDisconnect();
   const { switchNetwork } = useSwitchNetwork();
+  const { isDarkMode } = useDarkMode();
   const [addressCopied, setAddressCopied] = useState(false);
 
   return (
@@ -40,8 +42,14 @@ export const RainbowKitCustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
-                    Connect Wallet👛
+                  <button
+                    className={`border-none outline-none capitalize h-12 px-4 rounded-full bg-gradient-to-r from-gradFrom to-gradTo ${
+                      !isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    onClick={openConnectModal}
+                    type="button"
+                  >
+                    Connect Wallet
                   </button>
                 );
               }
