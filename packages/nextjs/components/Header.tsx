@@ -1,10 +1,16 @@
 import React, { useCallback, useRef, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
-import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+
+import { useDarkMode } from 'usehooks-ts';
+
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
+
+import { Bars3Icon, BugAntIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
+
+import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 interface HeaderMenuLink {
   label: string;
