@@ -20,17 +20,17 @@ export const menuLinks: HeaderMenuLink[] = [
   // {
   //   label: "Tagger",
   //   href: "/debug",
-  //   icon: <BugAntIcon className="h-4 w-4" />,
+  //   icon: <BugAntIcon className="w-4 h-4" />,
   // },
   // {
   //   label: "ETH-SPACE",
   //   href: "/",
-  //   icon: <SparklesIcon className="h-4 w-4" />,
+  //   icon: <SparklesIcon className="w-4 h-4" />,
   // },
   // {
   //   label: "Block Explorer",
   //   href: "https://sepolia-blockscout.scroll.io/address/0xEd6a0A29A962B4296bCeEC4e1E55F5Ec0474EAC7/contracts#address-tabs",
-  //   icon: <MagnifyingGlassIcon className="h-4 w-4" />,
+  //   icon: <MagnifyingGlassIcon className="w-4 h-4" />,
   // },
 ];
 
@@ -46,8 +46,7 @@ export const HeaderMenuLinks = () => {
             <Link
               href={href}
               passHref
-              className={`${
-                isActive ? "bg-secondary shadow-md" : ""
+              className={`${isActive ? "bg-secondary shadow-md" : ""
               } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
             >
               {icon}
@@ -87,7 +86,7 @@ export const Header = () => {
           {isDrawerOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="p-2 mt-3 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
               onClick={() => {
                 setIsDrawerOpen(false);
               }}
