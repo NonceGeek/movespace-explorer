@@ -65,6 +65,24 @@ export const HeaderMenuLinks = () => {
   );
 };
 
+export const ToggleDarkModeButton = () => {
+  const { isDarkMode, toggle } = useDarkMode();
+
+  return (
+    <div className="flex justify-center ml-2" onClick={toggle}>
+      <input type="checkbox" name="light-switch" className="sr-only light-switch" />
+      <label
+        className={`relative h-[30px] p-[3px] rounded-full after:content-[''] after:transition-transform after:duration-500 after:absolute after:w-6 after:h-6 after:p-[6px] after:rounded-full after:bg-gradient-to-r after:from-[#439DFF] after:to-[#6052FF] flex items-center cursor-pointer select-none ${!isDarkMode ? "bg-[#F0F2F5]" : "bg-[#2C2C2C] after:translate-x-full"}`}
+        htmlFor="light-switch"
+      >
+        <Image className="m-[6px] z-20" width={12} height={12} src="/svg/light-mode.svg" alt="light-mode" />
+        <Image className="m-[6px] z-20" width={12} height={12} src="/svg/dark-mode.svg" alt="dark-mode" />
+        <span className="sr-only">Switch to light / dark version</span>
+      </label>
+    </div>
+  );
+};
+
 /**
  * Site header
  */
@@ -106,7 +124,10 @@ export const Header = () => {
           )}
         </div>
       </div>
-      <Image alt="nav-icon" className="cursor-pointer" width={18} height={15} src="/svg/nav.svg" />
+      <div className="flex space-x-6">
+        <Image alt="nav-icon" className="cursor-pointer" width={18} height={15} src="/svg/nav.svg" />
+        <ToggleDarkModeButton />
+      </div>
       <Link href="/" passHref className="items-center hidden gap-2 ml-4 mr-6 lg:flex shrink-0">
         <div className="flex flex-col">
           <span className="font-bold leading-tight">MoveSpace AI Explorer</span>
