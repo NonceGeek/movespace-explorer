@@ -1,7 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { useDarkMode } from "usehooks-ts";
-import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { hardhat } from "wagmi/chains";
+import { Faucet, FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { useGlobalState } from "~~/services/store/store";
+import { getTargetNetwork } from "~~/utils/scaffold-eth";
 
 export const ToggleDarkModeButton = () => {
   const { isDarkMode, toggle } = useDarkMode();
@@ -24,6 +27,8 @@ export const ToggleDarkModeButton = () => {
 };
 
 export const Header = () => {
+  const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
+
   return (
     <div
       className="w-[1280px] rounded-[6px] mx-auto flex justify-between items-center bg-white py-4 px-[29px]"
@@ -36,7 +41,15 @@ export const Header = () => {
         <ToggleDarkModeButton />
       </div>
       <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
-      <div>
+      <div className="flex items-center space-x-6">
+        <div className="w-[102px] h-10 bg-[#F0F2F5] flex justify-center items-center rounded-full pointer-events-auto">
+          {nativeCurrencyPrice > 0 && (
+            <div className="cursor-auto">
+              <span>$ {nativeCurrencyPrice}</span>
+            </div>
+          )}
+          {getTargetNetwork().id === hardhat.id && <Faucet />}
+        </div>
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>
