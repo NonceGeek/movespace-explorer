@@ -10,7 +10,9 @@ export const ToggleDarkModeButton = () => {
     <div className="flex justify-center ml-2" onClick={toggle}>
       <input type="checkbox" name="light-switch" className="sr-only light-switch" />
       <label
-        className={`relative h-[30px] p-[3px] rounded-full after:content-[''] after:transition-transform after:duration-500 after:absolute after:w-6 after:h-6 after:p-[6px] after:rounded-full after:bg-gradient-to-r after:from-[#439DFF] after:to-[#6052FF] flex items-center cursor-pointer select-none ${!isDarkMode ? "bg-[#F0F2F5]" : "bg-[#2C2C2C] after:translate-x-full"}`}
+        className={`relative h-[30px] p-[3px] rounded-full after:content-[''] after:transition-transform after:duration-500 after:absolute after:w-6 after:h-6 after:p-[6px] after:rounded-full after:bg-gradient-to-r after:from-[#439DFF] after:to-[#6052FF] flex items-center cursor-pointer select-none ${
+          !isDarkMode ? "bg-[#F0F2F5]" : "bg-[#2C2C2C] after:translate-x-full"
+        }`}
         htmlFor="light-switch"
       >
         <Image className="m-[6px] z-20" width={12} height={12} src="/svg/light-mode.svg" alt="light-mode" />
