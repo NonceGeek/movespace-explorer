@@ -1,7 +1,7 @@
-# 🏗 Bodhi AI Explorer
+# MoveSpace Exploere
 
 <h4 align="center">
-  <a href="https://smart-contract-explorer.movespace.xyz/"> -[ Lanuch App ]- </a>
+  <a href="https://explorer.movespace.xyz/"> -[ Lanuch App ]- </a>
 </h4>
 <h4>
   Other important links:
