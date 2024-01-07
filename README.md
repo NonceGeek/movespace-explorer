@@ -1,4 +1,4 @@
-# MoveSpace Exploere
+# MoveSpace Explorer
 
 <h4 align="center">
   <a href="https://explorer.movespace.xyz/"> -[ Lanuch App ]- </a>
@@ -26,7 +26,7 @@ See Deck:
 
 
 
-🧪 Bodhi AI Explorer 是一个 基于向量数据库和 LLM 进行 ETH 智能合约代码检索的浏览器，搜索结果包含智能合约原文、出处、代码解析等多维度内容。向量数据库技术是人工智能应用中的一项重要技术，通过 ANN 最似近邻算法，我们可以通过自然语言进行联想式搜索，而非传统的关键字搜索。立项起因是传统搜索代码的浏览器，例如 Etherscan，仅能搜索出原始代码。我们希望通过 AI 赋能，建立关于智能合约代码的全维度搜索，让合约开发者的效率指数倍增。
+🧪  MoveSpace Explorer 用于搜索 [MoveSpace](https://movespace.xyz) 中所有对外开放的数据集与对数据进行数据标签。向量数据库技术是人工智能应用中的一项重要技术，通过 ANN 最似近邻算法，我们可以通过自然语言进行联想式搜索，而非传统的关键字搜索。
 
 
 
