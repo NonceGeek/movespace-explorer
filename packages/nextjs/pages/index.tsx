@@ -35,6 +35,7 @@ const ETHSpace: NextPage = () => {
   const [dataset, setDataset] = useState("galxe-campaigns");
   //获取用户搜索的prompt
   const [searchPrompt, setSearchPrompt] = useState("");
+  const [searchPrompt2, setSearchPrompt2] = useState("");
   //仅在组件挂载时执行一次获取数据集列表
 
   // new feature
@@ -227,79 +228,103 @@ const ETHSpace: NextPage = () => {
             />
           )}
           {searchPrompt ? (
-            <Image src="/assets/enter.png" width={26} height={26} alt="enter" onClick={handleOnClick} />
+            <Image
+              className="cursor-pointer"
+              src="/assets/enter.png"
+              width={26}
+              height={26}
+              alt="enter"
+              onClick={handleOnClick}
+            />
           ) : (
             <Image src="/assets/enter-disabled.png" width={26} height={26} alt="enter" />
           )}
         </div>
       </div>
-      <div className="mx-auto w-4/5 max-h-[600px] backdrop-blur-lg backdrop-filter p-10 m-10 rounded-lg opacity-80 shadow-md overflow-auto overflow-y-auto">
-        <h2 className="mb-1 text-4xl font-bold">Search Results</h2>
-        <div>
+      <div className="mx-auto pt-9 w-[1024px] flex justify-between items-start space-x-5">
+        <Image src="/assets/prompt-blue.png" width={40} height={40} alt="prompt" />
+        <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white">
           {res.map((r, index) => (
-            <div key={index} className="m-5 overflow-x-auto collapse collapse-open bg-base-200">
-              <input type="checkbox" className="peer" />
-              <div className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-                Results from {dataset}
-              </div>
-              <div className="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-                {r.results.map((item, index) => (
-                  <div key={index}>
-                    <div className="divider"></div>
-                    <span className="text-xl">Data</span>
-                    <div>
-                      <ReactMarkdown>{item.data}</ReactMarkdown>
-                    </div>
-                    {dataset === "bodhi-text-contents" ? (
-                      <div>
-                        <span className="text-xl">Metadata</span>
-                        <pre className="text-base">{JSON.stringify(item.metadata)}</pre>
-                        <pre className="text-base">
-                          <b>Bodhi ID(view the full content in Bodhi👉): </b>
-                          <a href={"https://bodhi.wtf/" + item.metadata.id} target="_blank" rel="noreferrer">
-                            <button className="btn join-item">{item.metadata.id}</button>
-                          </a>
-                        </pre>
-                        <pre className="text-base">
-                          <b>Type: </b>
-                          {item.metadata.type}
-                        </pre>
-                        <br></br>
-                        <span className="text-xl">id in vectorDB</span>
-                        <pre className="text-base">
-                          <b>{item.id}</b>
-                        </pre>
-                        <br></br>
-                      </div>
-                    ) : dataset === "galxe-campaigns" ? (
-                      <div>
-                        <span className="text-xl">Metadata</span>
-                        <pre className="text-base">{JSON.stringify(item.metadata)}</pre>
-                        <pre className="text-base">
-                          <b>Chain Name: </b>
-                          {item.metadata.chain_name}
-                        </pre>
-                        <pre className="text-base">
-                          <b>Search Similiar Campaigns in the explorer!: </b>
-                          <a href="https://galxe.com/explore#all" target="_blank" rel="noreferrer">
-                            <button className="btn join-item">Search</button>
-                          </a>
-                        </pre>
-                        <br></br>
-                      </div>
-                    ) : (
-                      <div>
-                        <span className="text-xl">Metadata</span>
-                        <pre className="text-base">{JSON.stringify(item.metadata)}</pre>
-                        <br></br>
-                      </div>
-                    )}
-                    <a href={"/debug?uuid=" + item.id} target="_blank" rel="noreferrer">
-                      <button className="btn join-item">Tag this item!(Comming Soon..)</button>
-                    </a>
+            <div key={index} className="">
+              {r.results.map((item, index2) => (
+                <div
+                  key={index2}
+                  className="flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
+                >
+                  <div className="flex flex-col">
+                    <span className="leading-relaxed">{item.data}</span>
+                    <span className="font-bold">Data</span>
                   </div>
-                ))}
-              </div>
+                  <div className="flex flex-col space-y-4">
+                    {dataset === "bodhi-text-contents" ? (
+                      <>
+                        <div className="flex flex-col space-y-2">
+                          <span>{JSON.stringify(item.metadata)}</span>
+                          <span>
+                            <span>Bodhi ID(view the full content in Bodhi👉): </span>
+                            <a href={"https://bodhi.wtf/" + item.metadata.id} target="_blank" rel="noreferrer">
+                              <span className="bg-[#F0F2F5] px-3 py-1 rounded-lg">{item.metadata.id}</span>
+                            </a>
+                          </span>
+                          <span>Type: {item.metadata.type}</span>
+                          <span className="font-bold">Metadata</span>
+                        </div>
+                        <div className="flex flex-col">
+                          <span>{item.id}</span>
+                          <span className="font-bold">id in vectorDB</span>
+                        </div>
+                      </>
+                    ) : dataset === "galxe-campaigns" ? (
+                      <>
+                        <div className="flex flex-col">
+                          <span>{JSON.stringify(item.metadata)}</span>
+                          <span className="font-bold">Metadata</span>
+                        </div>
+                        <span>Chain Name: {item.metadata.chain_name}</span>
+                        <div className="flex items-center space-x-20">
+                          <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input">
+                            <div className="flex items-center flex-grow">
+                              <Image src="/svg/search.svg" width={12} height={12} alt="search" />
+                              <input
+                                className="w-full h-full p-0 pl-1 text-xs input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
+                                value={searchPrompt2}
+                                onChange={e => {
+                                  setSearchPrompt2(e.target.value);
+                                }}
+                                onKeyDown={handleEnterPress}
+                                placeholder="Search Similiar Campaigns in the explorer!:"
+                              />
+                            </div>
+                            {searchPrompt2 ? (
+                              <Image
+                                className="cursor-pointer"
+                                src="/assets/enter.png"
+                                width={16}
+                                height={16}
+                                alt="enter"
+                                onClick={handleOnClick}
+                              />
+                            ) : (
+                              <Image src="/assets/enter-disabled.png" width={16} height={16} alt="enter" />
+                            )}
+                          </div>
+                          <a href={"/debug?uuid=" + item.id} target="_blank" rel="noreferrer">
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs border border-gray-200 border-solid rounded-full">
+                              <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
+                              <span className="uppercase">Label this item! (Comming Soon..)</span>
+                            </span>
+                          </a>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <span>{JSON.stringify(item.metadata)}</span>
+                        <span className="font-bold">Metadata</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>
