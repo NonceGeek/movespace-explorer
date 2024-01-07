@@ -105,6 +105,10 @@ module.exports = {
       fontFamily: {
         "bai-jamjuree": ["Bai Jamjuree", "sans-serif"],
       },
+      colors: {
+        gradFrom: "#439DFF",
+        gradTo: "#6052FF",
+      },
       boxShadow: {
         center: "0 0 12px -2px rgb(0 0 0 / 0.05)",
       },

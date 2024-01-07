@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { QRCodeSVG } from "qrcode.react";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { useDarkMode } from "usehooks-ts";
 import { useDisconnect, useSwitchNetwork } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
@@ -25,6 +26,7 @@ export const RainbowKitCustomConnectButton = () => {
   const configuredNetwork = getTargetNetwork();
   const { disconnect } = useDisconnect();
   const { switchNetwork } = useSwitchNetwork();
+  const { isDarkMode } = useDarkMode();
   const [addressCopied, setAddressCopied] = useState(false);
 
   return (
@@ -40,8 +42,14 @@ export const RainbowKitCustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-primary btn-sm" onClick={openConnectModal} type="button">
-                    Connect Wallet👛
+                  <button
+                    className={`border-none outline-none capitalize h-12 px-4 rounded-full bg-gradient-to-r from-gradFrom to-gradTo ${
+                      !isDarkMode ? "text-white" : "text-black"
+                    }`}
+                    onClick={openConnectModal}
+                    type="button"
+                  >
+                    Connect Wallet
                   </button>
                 );
               }
@@ -49,13 +57,13 @@ export const RainbowKitCustomConnectButton = () => {
               if (chain.unsupported || chain.id !== configuredNetwork.id) {
                 return (
                   <div className="dropdown dropdown-end">
-                    <label tabIndex={0} className="btn btn-error btn-sm dropdown-toggle gap-1">
+                    <label tabIndex={0} className="gap-1 btn btn-error btn-sm dropdown-toggle">
                       <span>Wrong network</span>
-                      <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                      <ChevronDownIcon className="w-4 h-6 ml-2 sm:ml-0" />
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu p-2 mt-1 shadow-center shadow-accent bg-base-200 rounded-box gap-1"
+                      className="gap-1 p-2 mt-1 dropdown-content menu shadow-center shadow-accent bg-base-200 rounded-box"
                     >
                       <li>
                         <button
@@ -63,7 +71,7 @@ export const RainbowKitCustomConnectButton = () => {
                           type="button"
                           onClick={() => switchNetwork?.(configuredNetwork.id)}
                         >
-                          <ArrowsRightLeftIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                          <ArrowsRightLeftIcon className="w-4 h-6 ml-2 sm:ml-0" />
                           <span className="whitespace-nowrap">
                             Switch to <span style={{ color: networkColor }}>{configuredNetwork.name}</span>
                           </span>
@@ -75,7 +83,7 @@ export const RainbowKitCustomConnectButton = () => {
                           type="button"
                           onClick={() => disconnect()}
                         >
-                          <ArrowLeftOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Disconnect</span>
+                          <ArrowLeftOnRectangleIcon className="w-4 h-6 ml-2 sm:ml-0" /> <span>Disconnect</span>
                         </button>
                       </li>
                     </ul>
@@ -84,21 +92,21 @@ export const RainbowKitCustomConnectButton = () => {
               }
 
               return (
-                <div className="px-2 flex justify-end items-center">
+                <div className="flex items-center justify-end px-2">
                   <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address} className="min-h-0 h-auto" />
+                    <Balance address={account.address} className="h-auto min-h-0" />
                     <span className="text-xs" style={{ color: networkColor }}>
                       {chain.name}
                     </span>
                   </div>
-                  <div className="dropdown dropdown-end leading-3">
+                  <div className="leading-3 dropdown dropdown-end">
                     <label
                       tabIndex={0}
                       className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
                     >
                       <BlockieAvatar address={account.address} size={30} ensImage={account.ensAvatar} />
                       <span className="ml-2 mr-1">{account.displayName}</span>
-                      <ChevronDownIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                      <ChevronDownIcon className="w-4 h-6 ml-2 sm:ml-0" />
                     </label>
                     <ul
                       tabIndex={0}
@@ -108,7 +116,7 @@ export const RainbowKitCustomConnectButton = () => {
                         {addressCopied ? (
                           <div className="btn-sm !rounded-xl flex gap-3 py-3">
                             <CheckCircleIcon
-                              className="text-xl font-normal h-6 w-4 cursor-pointer ml-2 sm:ml-0"
+                              className="w-4 h-6 ml-2 text-xl font-normal cursor-pointer sm:ml-0"
                               aria-hidden="true"
                             />
                             <span className=" whitespace-nowrap">Copy address</span>
@@ -125,7 +133,7 @@ export const RainbowKitCustomConnectButton = () => {
                           >
                             <div className="btn-sm !rounded-xl flex gap-3 py-3">
                               <DocumentDuplicateIcon
-                                className="text-xl font-normal h-6 w-4 cursor-pointer ml-2 sm:ml-0"
+                                className="w-4 h-6 ml-2 text-xl font-normal cursor-pointer sm:ml-0"
                                 aria-hidden="true"
                               />
                               <span className=" whitespace-nowrap">Copy address</span>
@@ -135,13 +143,13 @@ export const RainbowKitCustomConnectButton = () => {
                       </li>
                       <li>
                         <label htmlFor="qrcode-modal" className="btn-sm !rounded-xl flex gap-3 py-3">
-                          <QrCodeIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                          <QrCodeIcon className="w-4 h-6 ml-2 sm:ml-0" />
                           <span className="whitespace-nowrap">View QR Code</span>
                         </label>
                       </li>
                       <li>
                         <button className="menu-item btn-sm !rounded-xl flex gap-3 py-3" type="button">
-                          <ArrowTopRightOnSquareIcon className="h-6 w-4 ml-2 sm:ml-0" />
+                          <ArrowTopRightOnSquareIcon className="w-4 h-6 ml-2 sm:ml-0" />
                           <a
                             target="_blank"
                             href={blockExplorerAddressLink}
@@ -158,25 +166,25 @@ export const RainbowKitCustomConnectButton = () => {
                           type="button"
                           onClick={() => disconnect()}
                         >
-                          <ArrowLeftOnRectangleIcon className="h-6 w-4 ml-2 sm:ml-0" /> <span>Disconnect</span>
+                          <ArrowLeftOnRectangleIcon className="w-4 h-6 ml-2 sm:ml-0" /> <span>Disconnect</span>
                         </button>
                       </li>
                     </ul>
                   </div>
                   <div>
                     <input type="checkbox" id="qrcode-modal" className="modal-toggle" />
-                    <label htmlFor="qrcode-modal" className="modal cursor-pointer">
-                      <label className="modal-box relative">
+                    <label htmlFor="qrcode-modal" className="cursor-pointer modal">
+                      <label className="relative modal-box">
                         {/* dummy input to capture event onclick on modal box */}
-                        <input className="h-0 w-0 absolute top-0 left-0" />
+                        <input className="absolute top-0 left-0 w-0 h-0" />
                         <label
                           htmlFor="qrcode-modal"
-                          className="btn btn-ghost btn-sm btn-circle absolute right-3 top-3"
+                          className="absolute btn btn-ghost btn-sm btn-circle right-3 top-3"
                         >
                           ✕
                         </label>
-                        <div className="space-y-3 py-6">
-                          <div className="flex space-x-4 flex-col items-center gap-6">
+                        <div className="py-6 space-y-3">
+                          <div className="flex flex-col items-center gap-6 space-x-4">
                             <QRCodeSVG value={account.address} size={256} />
                             <Address address={account.address} format="long" disableAddressLink />
                           </div>
