@@ -1,27 +1,49 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { ContractReadMethods } from "./ContractReadMethods";
 import { ContractVariables } from "./ContractVariables";
 import { ContractWriteMethods } from "./ContractWriteMethods";
+import { parseEther } from "viem";
 import { Spinner } from "~~/components/assets/Spinner";
 import { Address, Balance } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
 type ContractUIProps = {
   contractName: ContractName;
   className?: string;
+  itemId: string;
 };
 
 /**
  * UI component to interface with deployed contracts.
  **/
-export const ContractUI = ({ contractName, className = "" }: ContractUIProps) => {
+export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" }: ContractUIProps) => {
   const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
   const configuredNetwork = getTargetNetwork();
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
   const networkColor = useNetworkColor();
+
+  const [tag, setTag] = useState("");
+
+  /* smart contract interactor */
+  const { writeAsync, isLoading, isMining } = useScaffoldContractWrite({
+    contractName: contractName,
+    functionName: "tagItem",
+    args: [itemId, tag],
+    value: parseEther("0"),
+    blockConfirmations: 1,
+    onBlockConfirmation: txnReceipt => {
+      console.log("Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
+
+  const tagItem = (itemId: string, theTag: string) => {
+    setTag(theTag);
+    writeAsync();
+  };
 
   if (deployedContractLoading) {
     return (
@@ -69,8 +91,39 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
           </div>
         </div>
         <div className="col-span-1 lg:col-span-2 flex flex-col gap-6">
-          {/* <p>TODO: rewrite the tag function</p> */}
-          <div className="z-10">
+          <p>
+            <b>Tag:</b> {itemId}
+            <br></br>
+            <b>Tag Format:</b>{" "}
+            {JSON.stringify({
+              keyword_1: "keyword_1",
+              keyword_2: "keyword_2",
+              keyword_3: "keyword_3",
+              keyword_4: "keyword_4",
+              keyword_5: "keyword_5",
+            })}
+            <br></br>
+            <b>Content:</b> TODO
+          </p>
+          <div className="flex items-center space-x-2">
+            <input
+              type="text"
+              onChange={e => {
+                setTag(e.target.value);
+              }}
+              placeholder="Enter your text"
+              className="px-4 py-2 border w-96 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <button
+              onClick={() => {
+                tagItem(itemId, tag);
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors"
+            >
+              Tag it
+            </button>
+          </div>
+          {/* <div className="z-10">
             <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
               <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
                 <div className="flex items-center justify-center space-x-2">
@@ -96,7 +149,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

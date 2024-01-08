@@ -1,11 +1,11 @@
 const contracts = {
-  10: [
+  56: [
     {
-      chainId: "10",
-      name: "optimism",
+      chainId: "56",
+      name: "bsc",
       contracts: {
-        vectorTagger: {
-          address: "0xbF3ED49679E75BdA9E5c99954cdFbb7a60D7CE03",
+        ItemTagger: {
+          address: "0xb226d26EA05A80Fb2c66ba8E8871493623892A98",
           abi: [
             {
               inputs: [
@@ -28,7 +28,7 @@ const contracts = {
               anonymous: false,
               inputs: [
                 { indexed: true, internalType: "address", name: "tagger", type: "address" },
-                { indexed: false, internalType: "uint256", name: "assetId", type: "uint256" },
+                { indexed: false, internalType: "string", name: "itemId", type: "string" },
                 { indexed: false, internalType: "string", name: "metadata", type: "string" },
               ],
               name: "TagSet",
@@ -74,7 +74,7 @@ const contracts = {
             },
             {
               inputs: [
-                { internalType: "uint256", name: "_assetId", type: "uint256" },
+                { internalType: "string", name: "_itemId", type: "string" },
                 { internalType: "string", name: "_metadata", type: "string" },
               ],
               name: "tagItem",
@@ -86,7 +86,7 @@ const contracts = {
               inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
               name: "tags",
               outputs: [
-                { internalType: "uint256", name: "assetId", type: "uint256" },
+                { internalType: "string", name: "itemId", type: "string" },
                 { internalType: "string", name: "metadata", type: "string" },
                 { internalType: "address", name: "creator", type: "address" },
               ],

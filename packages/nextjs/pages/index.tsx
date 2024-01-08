@@ -276,10 +276,10 @@ const ETHSpace: NextPage = () => {
                           <span>{item.id}</span>
                         </div>
                         <div className="flex items-center space-x-20">
-                          <Link href={`/debug?uuid=${item.id}`}>
+                          <Link href={`/tag?contract_name=bodhi&item_id=${item.id}`}>
                             <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full">
                               <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
-                              <span className="uppercase">Label this item! (Comming Soon..)</span>
+                              <span className="uppercase">Label this item!</span>
                             </span>
                           </Link>
                         </div>

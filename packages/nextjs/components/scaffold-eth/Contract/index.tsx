@@ -1,5 +1,6 @@
 export * from "./ContractInput";
 export * from "./ContractUI";
+export * from "./ContractUIForBodhiTagger";
 export * from "./DisplayVariable";
 export * from "./ReadOnlyFunctionForm";
 export * from "./TxReceipt";
