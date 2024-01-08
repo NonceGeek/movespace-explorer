@@ -138,6 +138,7 @@ const ETHSpace: NextPage = () => {
     await timeout(1000);
 
     // 3. query for data
+
     const response2 = await fetch("https://query-user-search.deno.dev", {
       method: "POST",
       headers: {
@@ -162,7 +163,6 @@ const ETHSpace: NextPage = () => {
       }),
     };
     console.log("res1: ", res1);
-    // console.log(data.result.similarities);
     setRes([res1]);
   };
 
@@ -176,8 +176,10 @@ const ETHSpace: NextPage = () => {
     switch (dataset) {
       case "bodhi-text-contents":
         searchBodhiDataset();
+        break;
       default:
         searchDataset(dataset);
+        break;
     }
   };
 
@@ -185,10 +187,10 @@ const ETHSpace: NextPage = () => {
     <div className="flex flex-col items-center">
       <div className="flex items-center pt-20 space-x-2">
         <Image src="/assets/prompt-light.png" width={40} height={40} alt="prompt" />
-        <span className="text-[22px] font-bold">AI EXPLORER</span>
+        <span className="text-[22px] font-bold">MOVESPACE AI EXPLORER</span>
       </div>
       <div className="pt-8 text-[#2626268F]">
-        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source
+        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.
       </div>
       <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-[#F0F2F5]">
         <div className="flex items-center h-full search-input">
@@ -252,13 +254,14 @@ const ETHSpace: NextPage = () => {
                   className="flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
                 >
                   <div className="flex flex-col">
-                    <span className="leading-relaxed">{item.data}</span>
                     <span className="font-bold">Data</span>
+                    <span className="leading-relaxed">{item.data}</span>
                   </div>
                   <div className="flex flex-col space-y-4">
                     {dataset === "bodhi-text-contents" ? (
                       <>
                         <div className="flex flex-col space-y-2">
+                          <span className="font-bold">Metadata</span>
                           <span>{JSON.stringify(item.metadata)}</span>
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
@@ -267,18 +270,22 @@ const ETHSpace: NextPage = () => {
                             </a>
                           </span>
                           <span>Type: {item.metadata.type}</span>
-                          <span className="font-bold">Metadata</span>
+
                         </div>
                         <div className="flex flex-col">
-                          <span>{item.id}</span>
                           <span className="font-bold">id in vectorDB</span>
+                          <span>{item.id}</span>
+                          <span className="w-1/3 flex items-center h-10 px-3 py-2 space-x-2 text-xs border border-gray-200 border-solid rounded-full">
+                            <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
+                            <span className="uppercase">Label this item! (Comming Soon..)</span>
+                          </span>
                         </div>
                       </>
                     ) : dataset === "galxe-campaigns" ? (
                       <>
                         <div className="flex flex-col">
-                          <span>{JSON.stringify(item.metadata)}</span>
                           <span className="font-bold">Metadata</span>
+                          <span>{JSON.stringify(item.metadata)}</span>
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
                         <div className="flex items-center space-x-20">

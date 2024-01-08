@@ -42,14 +42,14 @@ export const Header = () => {
       </div>
       <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
       <div className="flex items-center space-x-6">
-        <div className="w-[102px] h-10 bg-[#F0F2F5] flex justify-center items-center rounded-full pointer-events-auto">
+        {/* <div className="w-[102px] h-10 bg-[#F0F2F5] flex justify-center items-center rounded-full pointer-events-auto">
           {nativeCurrencyPrice > 0 && (
             <div className="cursor-auto">
               <span>$ {nativeCurrencyPrice}</span>
             </div>
           )}
           {getTargetNetwork().id === hardhat.id && <Faucet />}
-        </div>
+        </div> */}
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>
