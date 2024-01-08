@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { useLocalStorage } from "usehooks-ts";
+import { parseEther } from "viem";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { ContractUI } from "~~/components/scaffold-eth";
+import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 import { getContractNames } from "~~/utils/scaffold-eth/contractNames";
 
@@ -10,7 +12,22 @@ const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 const contractNames = getContractNames();
 
 const Debug: NextPage = () => {
-  const [uuid, setUuid] = useState<string | null>("");
+  //   variables about the tagger contract
+  const [itemId, setItemId] = useState<string | null>("");
+  const [tag, setTag] = useState({});
+  const [contractName, setContractName] = useState("");
+
+  /* smart contract interactor */
+  const { writeAsync, isLoading, isMining } = useScaffoldContractWrite({
+    contractName: contractName,
+    functionName: "tagItem",
+    args: [itemId, JSON.stringify(tag)],
+    value: parseEther("0"),
+    blockConfirmations: 1,
+    onBlockConfirmation: txnReceipt => {
+      console.log("Transaction blockHash", txnReceipt.blockHash);
+    },
+  });
 
   const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
     selectedContractStorageKey,
@@ -19,8 +36,8 @@ const Debug: NextPage = () => {
 
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
-    const uuid = queryParameters.get("uuid");
-    setUuid(uuid);
+    const item_id = queryParameters.get("item_id");
+    setItemId(item_id);
   });
   useEffect(() => {
     if (!contractNames.includes(selectedContract)) {
@@ -30,10 +47,8 @@ const Debug: NextPage = () => {
 
   return (
     <>
-      <MetaHeader
-        title="Debug Contracts | Scaffold-ETH 2"
-        description="Debug your deployed 🏗 Scaffold-ETH 2 contracts in an easy way"
-      />
+      <MetaHeader title="Tag Item | MoveSpace" description="Tag MoveSpace Items in Easy Way" />
+      <p>{itemId}</p>
       <div className="flex flex-col gap-y-6 lg:gap-y-8 py-8 lg:py-12 justify-center items-center">
         {contractNames.length === 0 ? (
           <p className="text-3xl mt-14">No contracts found!</p>
@@ -54,9 +69,6 @@ const Debug: NextPage = () => {
                 ))}
               </div>
             )}
-            <p>
-              <b>uuid: {uuid}</b>
-            </p>
             {contractNames.map(contractName => (
               <ContractUI
                 key={contractName}

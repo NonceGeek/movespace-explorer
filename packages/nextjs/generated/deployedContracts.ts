@@ -1,193 +1,109 @@
 const contracts = {
-  31337: [
+  10: [
     {
-      chainId: "31337",
-      name: "localhost",
+      chainId: "10",
+      name: "optimism",
       contracts: {
-        YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        vectorTagger: {
+          address: "0xbF3ED49679E75BdA9E5c99954cdFbb7a60D7CE03",
           abi: [
             {
-              inputs: [],
+              inputs: [
+                { internalType: "string", name: "_vectorName", type: "string" },
+                { internalType: "string", name: "_vectorDescription", type: "string" },
+              ],
               stateMutability: "nonpayable",
               type: "constructor",
             },
             {
+              anonymous: false,
+              inputs: [
+                { indexed: false, internalType: "uint256", name: "tagIndex", type: "uint256" },
+                { indexed: false, internalType: "bool", name: "decide", type: "bool" },
+              ],
+              name: "JudgeSet",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                { indexed: true, internalType: "address", name: "tagger", type: "address" },
+                { indexed: false, internalType: "uint256", name: "assetId", type: "uint256" },
+                { indexed: false, internalType: "string", name: "metadata", type: "string" },
+              ],
+              name: "TagSet",
+              type: "event",
+            },
+            {
               inputs: [],
               name: "chairperson",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
+              outputs: [{ internalType: "address", name: "", type: "address" }],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "judgeIndex",
+              outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
               stateMutability: "view",
               type: "function",
             },
             {
               inputs: [
-                {
-                  internalType: "string",
-                  name: "_title",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "_content",
-                  type: "string",
-                },
+                { internalType: "uint256", name: "_tagIndex", type: "uint256" },
+                { internalType: "bool", name: "_decide", type: "bool" },
               ],
-              name: "createProposal",
+              name: "judgeTag",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "to",
-                  type: "address",
-                },
-              ],
-              name: "delegate",
-              outputs: [],
-              stateMutability: "nonpayable",
+              inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+              name: "judges",
+              outputs: [{ internalType: "bool", name: "", type: "bool" }],
+              stateMutability: "view",
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "uint32",
-                  name: "id",
-                  type: "uint32",
-                },
-              ],
-              name: "getProposal",
-              outputs: [
-                {
-                  components: [
-                    {
-                      internalType: "string",
-                      name: "title",
-                      type: "string",
-                    },
-                    {
-                      internalType: "string",
-                      name: "content",
-                      type: "string",
-                    },
-                    {
-                      internalType: "address",
-                      name: "proposaler",
-                      type: "address",
-                    },
-                    {
-                      internalType: "uint256",
-                      name: "voteCount",
-                      type: "uint256",
-                    },
-                  ],
-                  internalType: "struct YourContract.Proposal",
-                  name: "",
-                  type: "tuple",
-                },
-              ],
+              inputs: [],
+              name: "tagIndex",
+              outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
               stateMutability: "view",
               type: "function",
             },
             {
               inputs: [
-                {
-                  internalType: "address",
-                  name: "voter",
-                  type: "address",
-                },
+                { internalType: "uint256", name: "_assetId", type: "uint256" },
+                { internalType: "string", name: "_metadata", type: "string" },
               ],
-              name: "giveRightToVote",
+              name: "tagItem",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              name: "proposals",
+              inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+              name: "tags",
               outputs: [
-                {
-                  internalType: "string",
-                  name: "title",
-                  type: "string",
-                },
-                {
-                  internalType: "string",
-                  name: "content",
-                  type: "string",
-                },
-                {
-                  internalType: "address",
-                  name: "proposaler",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "voteCount",
-                  type: "uint256",
-                },
+                { internalType: "uint256", name: "assetId", type: "uint256" },
+                { internalType: "string", name: "metadata", type: "string" },
+                { internalType: "address", name: "creator", type: "address" },
               ],
               stateMutability: "view",
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "uint256",
-                  name: "proposal",
-                  type: "uint256",
-                },
-              ],
-              name: "vote",
-              outputs: [],
-              stateMutability: "nonpayable",
+              inputs: [],
+              name: "vectorDescription",
+              outputs: [{ internalType: "string", name: "", type: "string" }],
+              stateMutability: "view",
               type: "function",
             },
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              name: "voters",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "weight",
-                  type: "uint256",
-                },
-                {
-                  internalType: "bool",
-                  name: "voted",
-                  type: "bool",
-                },
-                {
-                  internalType: "address",
-                  name: "delegate",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "vote",
-                  type: "uint256",
-                },
-              ],
+              inputs: [],
+              name: "vectorName",
+              outputs: [{ internalType: "string", name: "", type: "string" }],
               stateMutability: "view",
               type: "function",
             },
