@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { NextPage } from "next";
-// import { type } from "os";
-import ReactMarkdown from "react-markdown";
 
 //定义一个新的数据类型来记录后端返回的数据
 export type resultByDataset = {
@@ -14,7 +13,7 @@ export type search_result = {
   id: string;
   data: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  metadata: {};
+  metadata: any;
 };
 
 function timeout(delay: number) {
@@ -30,7 +29,7 @@ const ETHSpace: NextPage = () => {
   const [datasetList, _setDatasetList] = useState(false);
   //获取目前提供的数据集选项
   const [options, setOptions] = useState<string[]>([]);
-  const [itemId, setItemId] = useState<number>();
+  // const [itemId, setItemId] = useState<number>();
   //获取用户选择的数据集
   const [dataset, setDataset] = useState("galxe-campaigns");
   //获取用户搜索的prompt
@@ -75,14 +74,12 @@ const ETHSpace: NextPage = () => {
       // mode: "no-cors",
     });
     const data = await response.json();
+    // { item_id: 16 }
     console.log("data:", data);
 
     // 1. setItemId
-    setItemId(data.item_id);
+    // setItemId(data.item_id);
     console.log("item_id: " + data.item_id);
-
-    // 2. wait 1 sec
-    await timeout(1000);
 
     // 3. query for data
     const response2 = await fetch("https://query-bodhi-user-search.deno.dev", {
@@ -104,6 +101,7 @@ const ETHSpace: NextPage = () => {
         return {
           id: item.uuid,
           data: item.data,
+          // { creator: '***', id: '***', type: '***' }
           metadata: item.metadata,
         };
       }),
@@ -128,17 +126,17 @@ const ETHSpace: NextPage = () => {
       // mode: "no-cors",
     });
     const data = await response.json();
+    // { item_id: 15 }
     console.log("data:", data);
 
     // 1. setItemId
-    setItemId(data.item_id);
+    // setItemId(data.item_id);
     console.log("item_id: " + data.item_id);
 
     // 2. wait 1 sec
     await timeout(1000);
 
     // 3. query for data
-
     const response2 = await fetch("https://query-user-search.deno.dev", {
       method: "POST",
       headers: {
@@ -150,7 +148,7 @@ const ETHSpace: NextPage = () => {
       // mode: "no-cors",
     });
     const data2 = await response2.json();
-    console.log("fully data: ", data2);
+    console.log("full data: ", data2);
 
     const res1: resultByDataset = {
       dataset_id: dataset,
@@ -158,11 +156,13 @@ const ETHSpace: NextPage = () => {
         return {
           id: item.uuid,
           data: item.data,
+          // { unique_id: "GCU8jUP7RS", chain_name: "bnb-chain" }
           metadata: item.metadata,
         };
       }),
     };
     console.log("res1: ", res1);
+    // console.log(data.result.similarities);
     setRes([res1]);
   };
 
@@ -179,7 +179,6 @@ const ETHSpace: NextPage = () => {
         break;
       default:
         searchDataset(dataset);
-        break;
     }
   };
 
@@ -187,16 +186,16 @@ const ETHSpace: NextPage = () => {
     <div className="flex flex-col items-center">
       <div className="flex items-center pt-20 space-x-2">
         <Image src="/assets/prompt-light.png" width={40} height={40} alt="prompt" />
-        <span className="text-[22px] font-bold">MOVESPACE AI EXPLORER</span>
+        <span className="text-[22px] font-poppins font-bold">AI EXPLORER</span>
       </div>
-      <div className="pt-8 text-[#2626268F]">
-        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.
+      <div className="pt-8 text-[#2626268F] font-poppins font-medium text-sm">
+        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source
       </div>
       <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-[#F0F2F5]">
         <div className="flex items-center h-full search-input">
           <Image src="/svg/search.svg" width={12.5} height={12.5} alt="search" />
           <input
-            className="w-[380px] h-full p-0 pl-2 input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
+            className="w-[380px] h-full p-0 pl-2 font-poppins text-sm font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
             value={searchPrompt}
             onChange={e => {
               setSearchPrompt(e.target.value);
@@ -205,7 +204,7 @@ const ETHSpace: NextPage = () => {
             placeholder="Enter your prompt to search"
           />
         </div>
-        <div className="flex items-center h-full space-x-2 search-confirm">
+        <div className="flex items-center h-full space-x-2 text-[9px] font-poppins search-confirm">
           {!datasetList ? (
             <select
               className="h-full rounded-[4px] text-xs focus-visible:outline-none py-1 px-2"
@@ -243,7 +242,7 @@ const ETHSpace: NextPage = () => {
           )}
         </div>
       </div>
-      <div className="mx-auto pt-9 w-[1024px] flex justify-between items-start space-x-5">
+      <div className="flex items-start justify-between mx-auto space-x-5 pt-9 w-base font-poppins">
         <Image src="/assets/prompt-blue.png" width={40} height={40} alt="prompt" />
         <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white">
           {res.map((r, index) => (
@@ -254,14 +253,13 @@ const ETHSpace: NextPage = () => {
                   className="flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
                 >
                   <div className="flex flex-col">
+                    <span className="font-medium leading-relaxed">{item.data}</span>
                     <span className="font-bold">Data</span>
-                    <span className="leading-relaxed">{item.data}</span>
                   </div>
                   <div className="flex flex-col space-y-4">
                     {dataset === "bodhi-text-contents" ? (
                       <>
                         <div className="flex flex-col space-y-2">
-                          <span className="font-bold">Metadata</span>
                           <span>{JSON.stringify(item.metadata)}</span>
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
@@ -270,22 +268,26 @@ const ETHSpace: NextPage = () => {
                             </a>
                           </span>
                           <span>Type: {item.metadata.type}</span>
-
+                          <span className="font-bold">Metadata</span>
                         </div>
                         <div className="flex flex-col">
-                          <span className="font-bold">id in vectorDB</span>
                           <span>{item.id}</span>
-                          <span className="w-1/3 flex items-center h-10 px-3 py-2 space-x-2 text-xs border border-gray-200 border-solid rounded-full">
-                            <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
-                            <span className="uppercase">Label this item! (Comming Soon..)</span>
-                          </span>
+                          <span className="font-bold">id in vectorDB</span>
+                        </div>
+                        <div className="flex items-center space-x-20">
+                          <Link href={`/debug?uuid=${item.id}`}>
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full">
+                              <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
+                              <span className="uppercase">Label this item! (Comming Soon..)</span>
+                            </span>
+                          </Link>
                         </div>
                       </>
                     ) : dataset === "galxe-campaigns" ? (
                       <>
                         <div className="flex flex-col">
-                          <span className="font-bold">Metadata</span>
                           <span>{JSON.stringify(item.metadata)}</span>
+                          <span className="font-bold">Metadata</span>
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
                         <div className="flex items-center space-x-20">
@@ -293,7 +295,7 @@ const ETHSpace: NextPage = () => {
                             <div className="flex items-center flex-grow">
                               <Image src="/svg/search.svg" width={12} height={12} alt="search" />
                               <input
-                                className="w-full h-full p-0 pl-1 text-xs input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
+                                className="w-full h-full p-0 pl-1 text-xs font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
                                 value={searchPrompt2}
                                 onChange={e => {
                                   setSearchPrompt2(e.target.value);
@@ -315,12 +317,12 @@ const ETHSpace: NextPage = () => {
                               <Image src="/assets/enter-disabled.png" width={16} height={16} alt="enter" />
                             )}
                           </div>
-                          <a href={"/debug?uuid=" + item.id} target="_blank" rel="noreferrer">
-                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs border border-gray-200 border-solid rounded-full">
+                          <Link href={`/debug?uuid=${item.id}`}>
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full">
                               <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
                               <span className="uppercase">Label this item! (Comming Soon..)</span>
                             </span>
-                          </a>
+                          </Link>
                         </div>
                       </>
                     ) : (

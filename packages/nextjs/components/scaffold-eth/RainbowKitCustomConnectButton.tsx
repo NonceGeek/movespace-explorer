@@ -43,7 +43,7 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className={`border-none outline-none capitalize h-12 px-4 rounded-full bg-gradient-to-r from-gradFrom to-gradTo ${
+                    className={`border-none font-poppins text-[15px] font-semibold outline-none capitalize h-12 px-4 rounded-full bg-gradient-to-r from-gradFrom to-gradTo ${
                       !isDarkMode ? "text-white" : "text-black"
                     }`}
                     onClick={openConnectModal}
