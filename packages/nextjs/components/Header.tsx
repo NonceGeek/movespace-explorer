@@ -27,8 +27,6 @@ export const ToggleDarkModeButton = () => {
 };
 
 export const Header = () => {
-  const nativeCurrencyPrice = useGlobalState(state => state.nativeCurrencyPrice);
-
   return (
     <div
       className="w-[1280px] rounded-[6px] mx-auto flex justify-between items-center bg-white py-4 px-[29px]"
@@ -42,15 +40,7 @@ export const Header = () => {
       </div>
       <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
       <div className="flex items-center space-x-6">
-        <div className="px-4 py-3 bg-[#F0F2F5] flex justify-center items-center rounded-full pointer-events-auto">
-          {nativeCurrencyPrice > 0 && (
-            <div className="flex items-center space-x-2 cursor-auto">
-              <Image src="/svg/dollor.svg" width={15} height={15} alt="balance" />
-              <span className="text-[13px] font-bold font-plus">{nativeCurrencyPrice}</span>
-            </div>
-          )}
-          {getTargetNetwork().id === hardhat.id && <Faucet />}
-        </div>
+
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>

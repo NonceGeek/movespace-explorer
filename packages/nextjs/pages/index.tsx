@@ -186,10 +186,10 @@ const ETHSpace: NextPage = () => {
     <div className="flex flex-col items-center">
       <div className="flex items-center pt-20 space-x-2">
         <Image src="/assets/prompt-light.png" width={40} height={40} alt="prompt" />
-        <span className="text-[22px] font-poppins font-bold">AI EXPLORER</span>
+        <span className="text-[22px] font-poppins font-bold">MoveSpace AI EXPLORER</span>
       </div>
       <div className="pt-8 text-[#2626268F] font-poppins font-medium text-sm">
-        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source
+        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.
       </div>
       <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-[#F0F2F5]">
         <div className="flex items-center h-full search-input">
@@ -253,13 +253,15 @@ const ETHSpace: NextPage = () => {
                   className="flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
                 >
                   <div className="flex flex-col">
-                    <span className="font-medium leading-relaxed">{item.data}</span>
                     <span className="font-bold">Data</span>
+                    <span className="font-medium leading-relaxed">{item.data}</span>
+
                   </div>
                   <div className="flex flex-col space-y-4">
                     {dataset === "bodhi-text-contents" ? (
                       <>
                         <div className="flex flex-col space-y-2">
+                          <span className="font-bold">Metadata</span>
                           <span>{JSON.stringify(item.metadata)}</span>
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
@@ -268,11 +270,10 @@ const ETHSpace: NextPage = () => {
                             </a>
                           </span>
                           <span>Type: {item.metadata.type}</span>
-                          <span className="font-bold">Metadata</span>
                         </div>
                         <div className="flex flex-col">
-                          <span>{item.id}</span>
                           <span className="font-bold">id in vectorDB</span>
+                          <span>{item.id}</span>
                         </div>
                         <div className="flex items-center space-x-20">
                           <Link href={`/debug?uuid=${item.id}`}>
@@ -286,8 +287,8 @@ const ETHSpace: NextPage = () => {
                     ) : dataset === "galxe-campaigns" ? (
                       <>
                         <div className="flex flex-col">
-                          <span>{JSON.stringify(item.metadata)}</span>
                           <span className="font-bold">Metadata</span>
+                          <span>{JSON.stringify(item.metadata)}</span>
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
                         <div className="flex items-center space-x-20">
