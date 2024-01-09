@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
+import { SvgSelected } from "~~/components/svg/Select";
+import { SelectDown } from "~~/components/svg/SelectDown";
 
 //定义一个新的数据类型来记录后端返回的数据
 export type resultByDataset = {
@@ -31,6 +33,8 @@ const ETHSpace: NextPage = () => {
   const [datasetList, _setDatasetList] = useState(false);
   //获取目前提供的数据集选项
   const [options, setOptions] = useState<string[]>([]);
+  const [showSelect, setShowSelect] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<number>(0);
   // const [itemId, setItemId] = useState<number>();
   //获取用户选择的数据集
   const [dataset, setDataset] = useState("galxe-campaigns");
@@ -206,20 +210,48 @@ const ETHSpace: NextPage = () => {
             placeholder="Enter your prompt to search"
           />
         </div>
-        <div className="flex items-center h-full space-x-2 text-[9px] font-poppins search-confirm">
+        <div className="flex items-center h-full space-x-2 text-[10px] font-poppins search-confirm">
           {!datasetList ? (
-            <select
-              className="h-full rounded-[4px] text-xs focus-visible:outline-none py-1 px-2"
-              onChange={e => {
-                setDataset(e.target.value);
-              }}
-            >
+            <div className="relative w-32" onClick={() => setShowSelect(!showSelect)}>
+              <button
+                type="button"
+                className="relative flex items-center justify-between w-full h-6 pr-1 bg-white rounded dark:bg-dark-deep ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-gradFrom dark:ring-light-gray dark:focus:ring-light-gray"
+                aria-haspopup="listbox"
+                aria-expanded="true"
+                aria-labelledby="listbox-label"
+              >
+                <span className="flex items-center justify-center flex-grow py-1 dark:text-dark-gray3">
+                  {options[selectedOption]}
+                </span>
+                <span className="flex items-center">
+                  <SelectDown className={`text-light-gray3 ${showSelect && "rotate-180"}`} />
+                </span>
+              </button>
+              {showSelect && (
+                <ul
+                  className="absolute z-10 w-full py-1 px-0.5 flex flex-col space-y-0.5 mt-1 overflow-auto bg-white dark:bg-dark-deep rounded max-h-28 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="listbox"
+                  aria-labelledby="listbox-label"
+                  aria-activedescendant="listbox-option-3"
+                >
               {options.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+                    <li
+                      className="box-border relative flex items-center justify-between px-2 py-1 text-gray-900 rounded cursor-default select-none dark:text-light-gray3 hover:border hover:border-purple hover:bg-purple-light dark:hover:text-white dark:hover:bg-opacity-0"
+                      id="listbox-option-0"
+                      role="option"
+                      key={index}
+                      onClick={() => {
+                        setSelectedOption(index);
+                        setDataset(option);
+                      }}
+                    >
+                      <div className="flex items-center">{option}</div>
+                      {selectedOption === index && <SvgSelected className="dark:text-purple-dark" />}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           ) : (
             <input
               className="input join-item"
