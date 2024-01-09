@@ -116,10 +116,21 @@ export const theme = {
     },
     spacing: {
       base: "1024px",
+      content: "1280px",
+      input: "380px",
     },
     colors: {
       gradFrom: "#439DFF",
       gradTo: "#6052FF",
+      light: "#F9F9F9",
+      "light-deep": "#BFBCF0",
+      "light-gray": "#2626268F",
+      "light-gray2": "#F0F2F5",
+      dark: "#131313",
+      dark2: "#2C2C2C",
+      "dark-deep": "#0D0D0D",
+      "dark-gray": "#D9D9D98F",
+      "dark-gray2": "#191919",
     },
     boxShadow: {
       center: "0 0 12px -2px rgb(0 0 0 / 0.05)",
