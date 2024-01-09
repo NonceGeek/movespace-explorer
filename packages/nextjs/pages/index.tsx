@@ -197,7 +197,7 @@ const ETHSpace: NextPage = () => {
         <div className="flex items-center h-full search-input">
           <Image src="/svg/search.svg" width={12.5} height={12.5} alt="search" />
           <input
-            className="h-full p-0 pl-2 text-sm font-semibold w-input font-poppins dark:bg-opacity-0 dark:text-dark-gray input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2 focus:dark:bg-opacity-0 focus:dark:text-dark-gray placeholder:text-dark-gray"
+            className="h-full p-0 pl-2 text-sm font-semibold w-input font-poppins dark:bg-opacity-0 dark:text-dark-gray input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2 focus:dark:bg-opacity-0 focus:dark:text-dark-gray placeholder:text-light-gray placeholder:dark:text-dark-gray"
             value={searchPrompt}
             onChange={e => {
               setSearchPrompt(e.target.value);
