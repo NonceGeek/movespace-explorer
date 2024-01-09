@@ -136,6 +136,7 @@ export const theme = {
       "dark-gray": "#D9D9D98F",
       "dark-gray2": "#191919",
       "dark-gray3": "#737373",
+      "dark-blue": "#212E6D",
       "enter-bg": "#2222224D",
       "enter-bg-dark": "#DDDDDD4D",
     },

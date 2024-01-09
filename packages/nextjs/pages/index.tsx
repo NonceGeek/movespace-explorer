@@ -43,6 +43,8 @@ const ETHSpace: NextPage = () => {
   //获取用户搜索的prompt
   const [searchPrompt, setSearchPrompt] = useState("");
   const [searchPrompt2, setSearchPrompt2] = useState("");
+  // 新建一个变量，用于标记搜索结果是否为空
+  const [isEmpty, setIsEmpty] = useState(false);
   //仅在组件挂载时执行一次获取数据集列表
 
   // new feature
@@ -103,6 +105,12 @@ const ETHSpace: NextPage = () => {
     const data2 = await response2.json();
     console.log("data2: ", data2);
 
+    if (data2.resp.data.length === 0) {
+      setRes([]);
+      setIsEmpty(true);
+      return;
+    }
+
     const res1: resultByDataset = {
       dataset_id: "bodhi-text-contents",
       results: data2.resp.data.map((item: { uuid: any; data: any; metadata: any }) => {
@@ -117,6 +125,7 @@ const ETHSpace: NextPage = () => {
     console.log("res1: ", res1);
     // console.log(data.result.similarities);
     setRes([res1]);
+    setIsEmpty(false);
   };
 
   const searchDataset = async (dataset: string) => {
@@ -158,6 +167,12 @@ const ETHSpace: NextPage = () => {
     const data2 = await response2.json();
     console.log("full data: ", data2);
 
+    if (data2.resp.data.length === 0) {
+      setRes([]);
+      setIsEmpty(true);
+      return;
+    }
+
     const res1: resultByDataset = {
       dataset_id: dataset,
       results: data2.resp.data.map((item: { uuid: any; data: any; metadata: any }) => {
@@ -172,6 +187,7 @@ const ETHSpace: NextPage = () => {
     console.log("res1: ", res1);
     // console.log(data.result.similarities);
     setRes([res1]);
+    setIsEmpty(false);
   };
 
   const handleOnClick = async () => {
@@ -284,13 +300,21 @@ const ETHSpace: NextPage = () => {
       </div>
       <div className="flex items-start justify-between mx-auto space-x-5 pt-9 w-base font-poppins">
         <Image src="/assets/prompt-blue.png" width={40} height={40} alt="prompt" />
-        <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white">
+        <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white dark:bg-dark-deep">
+          {/* 如果搜索后 res 数组元素数为0，则显示 No data found. Please try with another keyword. */}
+          {isEmpty && (
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <span className="text-xl font-semibold text-light-gray font-poppins dark:text-dark-gray">
+                No data found. Please try with another keyword.
+              </span>
+            </div>
+          )}
           {res.map((r, index) => (
-            <div key={index} className="">
+            <div key={index} className="dark:text-dark-blue">
               {r.results.map((item, index2) => (
                 <div
                   key={index2}
-                  className="flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
+                  className="group flex flex-col py-4 space-y-4 border-b border-[#E2E8F066] last:border-none text-sm"
                 >
                   <div className="flex flex-col">
                     <span className="font-bold">Data</span>
@@ -305,7 +329,9 @@ const ETHSpace: NextPage = () => {
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
                             <a href={"https://bodhi.wtf/" + item.metadata.id} target="_blank" rel="noreferrer">
-                              <span className="px-3 py-1 rounded-lg bg-light-gray2">{item.metadata.id}</span>
+                              <span className="px-3 py-1 rounded-lg bg-light-gray2 dark:bg-dark dark:text-dark-blue">
+                                {item.metadata.id}
+                              </span>
                             </a>
                           </span>
                           <span>Type: {item.metadata.type}</span>
@@ -314,9 +340,9 @@ const ETHSpace: NextPage = () => {
                           <span className="font-bold">id in vectorDB</span>
                           <span>{item.id}</span>
                         </div>
-                        <div className="flex items-center space-x-20">
+                        <div className="items-center hidden space-x-20 group-hover:flex">
                           <Link href={`/tag?contract_name=bodhi&item_id=${item.id}`}>
-                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full">
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
                               <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
                               <span className="uppercase">Label this item!</span>
                             </span>
@@ -330,12 +356,12 @@ const ETHSpace: NextPage = () => {
                           <span>{JSON.stringify(item.metadata)}</span>
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
-                        <div className="flex items-center space-x-20">
-                          <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input">
+                        <div className="items-center hidden space-x-20 group-hover:flex">
+                          <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input dark:bg-dark">
                             <div className="flex items-center flex-grow">
                               <Image src="/svg/search.svg" width={12} height={12} alt="search" />
                               <input
-                                className="w-full h-full p-0 pl-1 text-xs font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2"
+                                className="w-full h-full p-0 pl-1 text-xs font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2 dark:bg-dark dark:text-dark-gray dark:focus:bg-dark placeholder:text-light-gray placeholder:dark:text-dark-gray"
                                 value={searchPrompt2}
                                 onChange={e => {
                                   setSearchPrompt2(e.target.value);
@@ -344,21 +370,33 @@ const ETHSpace: NextPage = () => {
                                 placeholder="Search Similiar Campaigns in the explorer!:"
                               />
                             </div>
-                            {searchPrompt2 ? (
-                              <Image
-                                className="cursor-pointer"
-                                src="/assets/enter.png"
-                                width={16}
-                                height={16}
-                                alt="enter"
-                                onClick={handleOnClick}
-                              />
-                            ) : (
-                              <Image src="/assets/enter-disabled.png" width={16} height={16} alt="enter" />
-                            )}
+                            <div
+                              className={`w-6 h-6 p-1 rounded ${
+                                !searchPrompt2
+                                  ? "bg-enter-bg dark:bg-enter-bg-dark"
+                                  : "bg-gradient-to-r from-gradFrom to-gradTo"
+                              }`}
+                              onClick={() => {
+                                if (searchPrompt2) {
+                                  handleOnClick();
+                                }
+                              }}
+                            >
+                              {!theme || theme === "light" ? (
+                                <Image
+                                  className="cursor-pointer"
+                                  src="/svg/enter.svg"
+                                  width={16}
+                                  height={16}
+                                  alt="enter"
+                                />
+                              ) : (
+                                <Image src="/svg/enter-dark.svg" width={16} height={16} alt="enter" />
+                              )}
+                            </div>
                           </div>
                           <Link href={`/debug?uuid=${item.id}`}>
-                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full">
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
                               <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
                               <span className="uppercase">Label this item! (Comming Soon..)</span>
                             </span>
