@@ -2,6 +2,8 @@
 // import tailwind defaultTheme
 import { fontFamily } from "tailwindcss/defaultTheme";
 
+// add dark mode
+export const darkMode = "class";
 export const content = [
   "./pages/**/*.{js,ts,jsx,tsx}",
   "./components/**/*.{js,ts,jsx,tsx}",
