@@ -1,21 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import { useDarkMode } from "usehooks-ts";
-import { hardhat } from "wagmi/chains";
-import { Faucet, FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useGlobalState } from "~~/services/store/store";
-import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { useTheme } from "next-themes";
+import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
 export const ToggleDarkModeButton = () => {
-  const { isDarkMode, toggle } = useDarkMode();
+  const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex justify-center ml-2" onClick={toggle}>
+    <div
+      className="flex justify-center ml-2 bg-light dark:bg-dark"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+    >
       <input type="checkbox" name="light-switch" className="sr-only light-switch" />
       <label
-        className={`relative h-[30px] p-[3px] rounded-full after:content-[''] after:transition-transform after:duration-500 after:absolute after:w-6 after:h-6 after:p-[6px] after:rounded-full after:bg-gradient-to-r after:from-[#439DFF] after:to-[#6052FF] flex items-center cursor-pointer select-none ${
-          !isDarkMode ? "bg-[#F0F2F5]" : "bg-[#2C2C2C] after:translate-x-full"
-        }`}
+        className={`relative h-[30px] p-[3px] rounded-full after:content-[''] after:transition-transform after:duration-500 after:absolute after:w-6 after:h-6 after:p-[6px] after:rounded-full after:bg-gradient-to-r after:from-[#439DFF] after:to-[#6052FF] flex items-center cursor-pointer select-none bg-[#F0F2F5] dark:bg-[#2C2C2C] dark:after:translate-x-full`}
         htmlFor="light-switch"
       >
         <Image className="m-[6px] z-20" width={12} height={12} src="/svg/light-mode.svg" alt="light-mode" />
@@ -40,7 +38,6 @@ export const Header = () => {
       </div>
       <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
       <div className="flex items-center space-x-6">
-
         <RainbowKitCustomConnectButton />
         <FaucetButton />
       </div>

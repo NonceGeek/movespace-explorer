@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Plus_Jakarta_Sans, Poppins } from "next/font/google";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
+import { ThemeProvider } from "next-themes";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
 import { useDarkMode } from "usehooks-ts";
@@ -51,21 +52,23 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
         avatar={BlockieAvatar}
         theme={isDarkTheme ? darkTheme() : lightTheme()}
       >
-        <div className="flex flex-col min-h-screen bg-[#f9f9f9] pt-6">
-          <style jsx global>
-            {`
-              :root {
-                --font-plus-jakarta-sans: ${plus.style.fontFamily};
-                --font-poppins: ${poppins.style.fontFamily};
-              }
-            `}
-          </style>
-          <Header />
-          <main className="relative flex flex-col flex-1">
-            <Component {...pageProps} />
-          </main>
-          <Footer />
-        </div>
+        <ThemeProvider attribute="class">
+          <div className="flex flex-col min-h-screen pt-6">
+            <style jsx global>
+              {`
+                :root {
+                  --font-plus-jakarta-sans: ${plus.style.fontFamily};
+                  --font-poppins: ${poppins.style.fontFamily};
+                }
+              `}
+            </style>
+            <Header />
+            <main className="relative flex flex-col flex-1">
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
         <Toaster />
       </RainbowKitProvider>
     </WagmiConfig>
