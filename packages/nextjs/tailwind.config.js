@@ -131,6 +131,8 @@ export const theme = {
       "dark-deep": "#0D0D0D",
       "dark-gray": "#D9D9D98F",
       "dark-gray2": "#191919",
+      "enter-bg": "#2222224D",
+      "enter-bg-dark": "#DDDDDD4D",
     },
     boxShadow: {
       center: "0 0 12px -2px rgb(0 0 0 / 0.05)",

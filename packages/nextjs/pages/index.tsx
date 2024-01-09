@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
+import { useTheme } from "next-themes";
 
 //定义一个新的数据类型来记录后端返回的数据
 export type resultByDataset = {
@@ -21,6 +22,7 @@ function timeout(delay: number) {
 }
 
 const ETHSpace: NextPage = () => {
+  const { theme, setTheme } = useTheme();
   //在对后端发起请求后，将response的内容保存在results中
   //如果用户选择使用mixed模式，则使用resultByDataset来记录结果
   const [res, setRes] = useState<resultByDataset[]>([]);
@@ -228,18 +230,22 @@ const ETHSpace: NextPage = () => {
               placeholder="Pls input the public dataset name"
             />
           )}
-          {searchPrompt ? (
-            <Image
-              className="cursor-pointer"
-              src="/assets/enter.png"
-              width={26}
-              height={26}
-              alt="enter"
-              onClick={handleOnClick}
-            />
-          ) : (
-            <Image src="/assets/enter-disabled.png" width={26} height={26} alt="enter" />
-          )}
+          <div
+            className={`w-6 h-6 p-1 rounded ${
+              !searchPrompt ? "bg-enter-bg dark:bg-enter-bg-dark" : "bg-gradient-to-r from-gradFrom to-gradTo"
+            }`}
+            onClick={() => {
+              if (searchPrompt) {
+                handleOnClick();
+              }
+            }}
+          >
+            {theme === "light" ? (
+              <Image className="cursor-pointer" src="/svg/enter.svg" width={18} height={18} alt="enter" />
+            ) : (
+              <Image src="/svg/enter-dark.svg" width={18} height={18} alt="enter" />
+            )}
+          </div>
         </div>
       </div>
       <div className="flex items-start justify-between mx-auto space-x-5 pt-9 w-base font-poppins">
