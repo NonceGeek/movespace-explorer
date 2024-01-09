@@ -22,7 +22,7 @@ function timeout(delay: number) {
 }
 
 const ETHSpace: NextPage = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   //在对后端发起请求后，将response的内容保存在results中
   //如果用户选择使用mixed模式，则使用resultByDataset来记录结果
   const [res, setRes] = useState<resultByDataset[]>([]);
