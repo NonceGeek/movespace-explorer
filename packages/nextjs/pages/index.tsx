@@ -33,7 +33,9 @@ const ETHSpace: NextPage = () => {
   const [datasetList, _setDatasetList] = useState(false);
   //获取目前提供的数据集选项
   const [options, setOptions] = useState<string[]>([]);
+  // 设置是否显示下拉菜单
   const [showSelect, setShowSelect] = useState(false);
+  // 记录选择的下拉菜单项的index
   const [selectedOption, setSelectedOption] = useState<number>(0);
   // const [itemId, setItemId] = useState<number>();
   //获取用户选择的数据集
