@@ -53,7 +53,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
         theme={isDarkTheme ? darkTheme() : lightTheme()}
       >
         <ThemeProvider attribute="class">
-          <div className="flex flex-col min-h-screen pt-6">
+          <div className="flex flex-col min-h-screen bg-light dark:bg-dark">
             <style jsx global>
               {`
                 :root {
