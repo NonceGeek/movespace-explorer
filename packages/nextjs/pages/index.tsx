@@ -236,7 +236,7 @@ const ETHSpace: NextPage = () => {
                   aria-labelledby="listbox-label"
                   aria-activedescendant="listbox-option-3"
                 >
-              {options.map((option, index) => (
+                  {options.map((option, index) => (
                     <li
                       className="box-border relative flex items-center justify-between px-2 py-1 text-gray-900 rounded cursor-default select-none dark:text-light-gray3 hover:border hover:border-purple hover:bg-purple-light dark:hover:text-white dark:hover:bg-opacity-0"
                       id="listbox-option-0"
@@ -274,7 +274,7 @@ const ETHSpace: NextPage = () => {
               }
             }}
           >
-            {theme === "light" ? (
+            {!theme || theme === "light" ? (
               <Image className="cursor-pointer" src="/svg/enter.svg" width={18} height={18} alt="enter" />
             ) : (
               <Image src="/svg/enter-dark.svg" width={18} height={18} alt="enter" />
