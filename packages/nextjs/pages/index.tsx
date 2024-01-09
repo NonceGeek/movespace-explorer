@@ -186,16 +186,16 @@ const ETHSpace: NextPage = () => {
     <div className="flex flex-col items-center">
       <div className="flex items-center pt-20 space-x-2">
         <Image src="/assets/prompt-light.png" width={40} height={40} alt="prompt" />
-        <span className="text-[22px] font-poppins font-bold">MoveSpace AI EXPLORER</span>
+        <span className="text-[22px] font-poppins font-bold dark:text-light-deep">MoveSpace AI EXPLORER</span>
       </div>
-      <div className="pt-8 text-[#2626268F] font-poppins font-medium text-sm">
+      <div className="pt-8 text-sm font-medium text-light-gray font-poppins dark:text-dark-gray">
         Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.
       </div>
-      <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-[#F0F2F5]">
+      <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-light-gray2 dark:bg-dark-gray2">
         <div className="flex items-center h-full search-input">
           <Image src="/svg/search.svg" width={12.5} height={12.5} alt="search" />
           <input
-            className="w-[380px] h-full p-0 pl-2 font-poppins text-sm font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
+            className="h-full p-0 pl-2 text-sm font-semibold w-input font-poppins dark:bg-opacity-0 dark:text-dark-gray input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2 focus:dark:bg-opacity-0 focus:dark:text-dark-gray placeholder:text-dark-gray"
             value={searchPrompt}
             onChange={e => {
               setSearchPrompt(e.target.value);
@@ -255,7 +255,6 @@ const ETHSpace: NextPage = () => {
                   <div className="flex flex-col">
                     <span className="font-bold">Data</span>
                     <span className="font-medium leading-relaxed">{item.data}</span>
-
                   </div>
                   <div className="flex flex-col space-y-4">
                     {dataset === "bodhi-text-contents" ? (
@@ -266,7 +265,7 @@ const ETHSpace: NextPage = () => {
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
                             <a href={"https://bodhi.wtf/" + item.metadata.id} target="_blank" rel="noreferrer">
-                              <span className="bg-[#F0F2F5] px-3 py-1 rounded-lg">{item.metadata.id}</span>
+                              <span className="px-3 py-1 rounded-lg bg-light-gray2">{item.metadata.id}</span>
                             </a>
                           </span>
                           <span>Type: {item.metadata.type}</span>
@@ -296,7 +295,7 @@ const ETHSpace: NextPage = () => {
                             <div className="flex items-center flex-grow">
                               <Image src="/svg/search.svg" width={12} height={12} alt="search" />
                               <input
-                                className="w-full h-full p-0 pl-1 text-xs font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-[#F0F2F5]"
+                                className="w-full h-full p-0 pl-1 text-xs font-semibold input input-ghost focus:ring-0 focus:outline-none focus:bg-light-gray2"
                                 value={searchPrompt2}
                                 onChange={e => {
                                   setSearchPrompt2(e.target.value);
