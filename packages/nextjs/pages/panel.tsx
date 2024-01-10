@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { NextPage } from "next";
 import { Footer2 } from "~~/components/Footer2";
 import { GradientBorderButton } from "~~/components/GradientBorderButton";
+import { Pagination } from "~~/components/Pagination";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
 import { SvgLink } from "~~/components/svg/Link";
@@ -10,6 +11,11 @@ import { SvgSearch } from "~~/components/svg/Search";
 import { SvgSelectDown2 } from "~~/components/svg/SelectDown2";
 
 const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
+const sampleItem = {
+  uuid: "4e2f059f-391d-4fa8-9a8d-2732ae0cc7ca",
+  content: "Bitcoin: A peer-to-peer electronic cash system",
+  creator: "0x32dcd24235d8d1ff65a5ba44b4d74d393a9f6821",
+};
 const links = [
   {
     text: "github_link",
@@ -31,6 +37,8 @@ const Panel: NextPage = () => {
   const [text, setText] = useState("Select a DataSet");
   const [dataLoaded, setDataLoaded] = useState(false);
   const [btnText, setBtnText] = useState("Open dataset");
+  const [items, setItems] = useState<any[]>([]);
+
   useEffect(() => {
     if (dataLoaded) {
       setBtnText("Collapse items");
@@ -108,18 +116,18 @@ const Panel: NextPage = () => {
       </div>
       {/* Item Links */}
       {dataLoaded && (
-      <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
-        <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
-        <span className="capitalize text-gray1">whitepapers for all the projects</span>
-        <div className="flex items-center space-x-5 text-sm font-medium uppercase text-gray1">
-          {links.map((linkItem, index) => (
-            <div className="flex items-center space-x-1.5 cursor-pointer" key={index}>
-              <SvgLink />
-              <span className="underline underline-offset-2">{linkItem.text}</span>
-            </div>
-          ))}
+        <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
+          <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
+          <span className="capitalize text-gray1">whitepapers for all the projects</span>
+          <div className="flex items-center space-x-5 text-sm font-medium uppercase text-gray1">
+            {links.map((linkItem, index) => (
+              <div className="flex items-center space-x-1.5 cursor-pointer" key={index}>
+                <SvgLink />
+                <span className="underline underline-offset-2">{linkItem.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
       )}
       {/* Item List */}
       {dataLoaded && (
@@ -144,6 +152,12 @@ const Panel: NextPage = () => {
                 <SvgSelectDown2 />
               </div>
             </div>
+          </div>
+          {/* Table Footer */}
+          <div className="flex items-center justify-between mx-14">
+            <span className="text-lg font-medium text-[#B5B7C0]">Showing data 1 to 8 of 256K entries</span>
+            {/* Pagination */}
+            <Pagination />
           </div>
         </div>
       )}
