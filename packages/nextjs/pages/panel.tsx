@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
 import { Footer2 } from "~~/components/Footer2";
@@ -6,29 +6,12 @@ import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
 
-const fakeData = [
-  {
-    id: 1,
-    name: "test",
-    description: "test",
-    image: "test",
-    price: "test",
-    owner: "test",
-    tags: ["test", "test"],
-  },
-];
 const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
 
 const Panel: NextPage = () => {
-  const [mockData, setMockData] = useState<any[]>([]);
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [btnText, setBtnText] = useState("Select a DataSet");
-
-  useEffect(() => {
-    setMockData(fakeData);
-    console.log(mockData);
-  }, []);
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
