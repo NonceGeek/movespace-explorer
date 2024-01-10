@@ -14,7 +14,8 @@ const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
 const sampleItem = {
   uuid: "4e2f059f-391d-4fa8-9a8d-2732ae0cc7ca",
   content: "Bitcoin: A peer-to-peer electronic cash system",
-  metadata: "0x32dcd24235d8d1ff65a5ba44b4d74d393a9f6821",
+  metadata:
+    "Consequat minim eu in id consectetur labore. Ad proident quis nisi officia aliqua sint aliqua culpa incididunt est occaecat in cupidatat commodo.",
 };
 const links = [
   {
@@ -28,23 +29,6 @@ const links = [
   },
   {
     text: "tagger_Smart_COntract",
-  },
-];
-const itemHeader = [
-  {
-    title: "ID",
-  },
-  {
-    title: "UUID",
-  },
-  {
-    title: "CONTENT",
-  },
-  {
-    title: "METADATA",
-  },
-  {
-    title: "TAG ITEMS",
   },
 ];
 
@@ -188,22 +172,41 @@ const Panel: NextPage = () => {
           {items.length > 0 && (
             <div className="flex flex-col w-full">
               {/* ItemList Header */}
-              <div className="flex items-center justify-between mx-12">
-                {itemHeader.map((headerItem, index) => (
-                  <span className="text-gray-400" key={index}>
-                    {headerItem.title}
-                  </span>
-                ))}
+              <div className="flex items-center justify-between mx-12 uppercase">
+                <div className="flex">
+                  <span className="w-[220px] text-gray-400">ID</span>
+                  <span className="w-[100px] mr-[70px] text-gray-400">UUID</span>
+                  <span className="w-[100px] mr-[100px] text-gray-400">CONTENT</span>
+                  <span className="w-[360px] text-gray-400">METADATA</span>
+                </div>
+                <span className="pr-3 text-gray-400">TAG ITEMS</span>
               </div>
               <div className="w-full h-px mt-5 bg-gray-100"></div>
               {/* ItemList Body */}
               <div className="flex flex-col mx-12">
                 {items.map((item, index) => (
                   <div className="flex items-center justify-between h-20 border-b border-gray-100" key={index}>
-                    <span>{index + 1}</span>
-                    <span className="w-24 line-clamp-1">{item.uuid}</span>
-                    <span className="w-24 line-clamp-1">{item.content}</span>
-                    <span className="w-40 line-clamp-1">{item.metadata}</span>
+                    <div className="flex items-center">
+                      <span className="w-[220px]">{index + 1}</span>
+                      <span className="w-[100px] mr-[70px] relative group">
+                        <span className="line-clamp-1">{item.uuid}</span>
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                          {item.uuid}
+                        </span>
+                      </span>
+                      <span className="w-[100px] mr-[100px] relative group">
+                        <span className="line-clamp-1">{item.content}</span>
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                          {item.content}
+                        </span>
+                      </span>
+                      <span className="w-[360px] relative group">
+                        <span className="line-clamp-1">{item.metadata}</span>
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                          {item.metadata}
+                        </span>
+                      </span>
+                    </div>
                     <TagButton tagged={item.tagged} />
                   </div>
                 ))}
