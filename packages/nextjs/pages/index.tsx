@@ -4,6 +4,7 @@ import Link from "next/link";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
 import { Footer } from "~~/components/Footer";
+import { SvgLoading } from "~~/components/svg/Loading";
 import { SvgSelectDown } from "~~/components/svg/SelectDown";
 import { SvgSelected } from "~~/components/svg/Selected";
 
@@ -46,6 +47,8 @@ const ETHSpace: NextPage = () => {
   const [searchPrompt2, setSearchPrompt2] = useState("");
   // 新建一个变量，用于标记搜索结果是否为空
   const [isEmpty, setIsEmpty] = useState(false);
+  const [showMask, setShowMask] = useState(false);
+
   //仅在组件挂载时执行一次获取数据集列表
 
   // new feature
@@ -197,14 +200,16 @@ const ETHSpace: NextPage = () => {
     // 2. wait for 1 sec to query the result.
     // 3. TODO: give a process line when waiting.
     // 4. return as a list.
+    setShowMask(true);
     console.log("dataset now:" + dataset);
     switch (dataset) {
       case "bodhi-text-contents":
-        searchBodhiDataset();
+        await searchBodhiDataset();
         break;
       default:
-        searchDataset(dataset);
+        await searchDataset(dataset);
     }
+    setShowMask(false);
   };
 
   return (
@@ -417,6 +422,12 @@ const ETHSpace: NextPage = () => {
           ))}
         </div>
       </div>
+      {showMask && (
+        <div className="fixed top-0 left-0 right-0 flex items-center justify-center h-screen overflow-hidden text-white bg-black/30">
+          <SvgLoading className="w-12 h-12" />
+          <span className="text-xl">Searching...</span>
+        </div>
+      )}
       <Footer />
     </div>
   );
