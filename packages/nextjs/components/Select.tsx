@@ -42,7 +42,7 @@ export const Select = ({
         >
           {options.map((option, index) => (
             <li
-              className="box-border relative flex items-center justify-between px-2 py-1 border-transparent rounded cursor-default select-none text-light-gray3 hover:border hover:border-purple hover:bg-purple-light dark:hover:text-white dark:hover:bg-opacity-0"
+              className="box-border relative flex items-center justify-between px-2 py-1 border-transparent rounded cursor-default select-none text-light-gray3 dark:text-dark-gray hover:border hover:border-purple hover:bg-purple-light dark:hover:text-white dark:hover:bg-opacity-0"
               role="option"
               key={index}
               onClick={() => onSelectOptionClick(index)}
