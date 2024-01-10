@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
 import { Footer2 } from "~~/components/Footer2";
@@ -27,11 +27,37 @@ const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [text, setText] = useState("Select a DataSet");
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [btnText, setBtnText] = useState("Open dataset");
+  useEffect(() => {
+    if (dataLoaded) {
+      setBtnText("Collapse items");
+    }
+  }, [dataLoaded]);
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
     setText(selectOptions[index]);
   };
+
+  const onGradientBorderButtonClick = async () => {
+    if (!dataLoaded) {
+      await mockFetchData();
+      setDataLoaded(true);
+      return;
+    }
+  };
+
+  const mockFetchData = async () => {
+    // iterate 8 times with for loop
+    const mockData = [];
+    for (let i = 0; i < 8; i++) {
+      mockData.push({
+        ...sampleItem,
+        tagged: Math.random() >= 0.5,
+      });
+    }
+    setItems(mockData);
   };
 
   return (
@@ -72,6 +98,12 @@ const Panel: NextPage = () => {
           text={text}
           onSelectOptionClick={onSelectOptionClick}
         />
+        <GradientBorderButton
+          btnText={btnText}
+          disabled={selectedOption === null}
+          onClick={onGradientBorderButtonClick}
+        />
+      </div>
       {/* Item Links */}
       <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
         <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
