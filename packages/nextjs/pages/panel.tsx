@@ -30,7 +30,8 @@ const Panel: NextPage = () => {
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
-    setBtnText(selectOptions[index]);
+    setText(selectOptions[index]);
+  };
   };
 
   return (
