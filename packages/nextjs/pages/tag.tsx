@@ -11,7 +11,7 @@ import { getContractNames } from "~~/utils/scaffold-eth/contractNames";
 const selectedContractStorageKey = "scaffoldEth2.selectedContract";
 const contractNames = getContractNames();
 
-const Debug: NextPage = () => {
+const Tag: NextPage = () => {
   //   variables about the tagger contract
   const [itemId, setItemId] = useState<string | null>("");
   const [contractName, setContractName] = useState<string | null>("");
@@ -75,4 +75,4 @@ const Debug: NextPage = () => {
   );
 };
 
-export default Debug;
+export default Tag;
