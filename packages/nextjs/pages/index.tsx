@@ -214,7 +214,7 @@ const ETHSpace: NextPage = () => {
         <span className="text-[22px] font-poppins font-bold dark:text-light-deep">MoveSpace AI EXPLORER</span>
       </div>
       <div className="pt-8 text-sm font-medium text-light-gray font-poppins dark:text-dark-gray">
-        Full Dimension Content Search & Tagger App based on AI for Web2/Web3 Data Source.
+        AI-powered data search explorer & data labeling platform
       </div>
       <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-light-gray2 dark:bg-dark-gray2">
         <div className="flex items-center h-full search-input">
