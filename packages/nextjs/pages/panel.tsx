@@ -5,8 +5,23 @@ import { Footer2 } from "~~/components/Footer2";
 import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
+import { SvgLink } from "~~/components/svg/Link";
 
 const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
+const links = [
+  {
+    text: "github_link",
+  },
+  {
+    text: "TAGGtagger_dapp",
+  },
+  {
+    text: "TAGGtagger_dapp",
+  },
+  {
+    text: "tagger_Smart_COntract",
+  },
+];
 
 const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
@@ -56,7 +71,18 @@ const Panel: NextPage = () => {
           btnText={btnText}
           onSelectOptionClick={onSelectOptionClick}
         />
-        <GradientBorderButton btnText="Open dataset" />
+      {/* Item Links */}
+      <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
+        <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
+        <span className="capitalize text-gray1">whitepapers for all the projects</span>
+        <div className="flex items-center space-x-5 text-sm font-medium uppercase text-gray1">
+          {links.map((linkItem, index) => (
+            <div className="flex items-center space-x-1.5 cursor-pointer" key={index}>
+              <SvgLink />
+              <span className="underline underline-offset-2">{linkItem.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
       <Footer2 />
     </div>
