@@ -147,6 +147,7 @@ export const theme = {
     },
     boxShadow: {
       center: "0 0 12px -2px rgb(0 0 0 / 0.05)",
+      table: "0px 13px 80px 0px #E2ECF980",
     },
     keyframes: {
       grow: {

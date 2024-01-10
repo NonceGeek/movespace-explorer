@@ -6,6 +6,8 @@ import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
 import { SvgLink } from "~~/components/svg/Link";
+import { SvgSearch } from "~~/components/svg/Search";
+import { SvgSelectDown2 } from "~~/components/svg/SelectDown2";
 
 const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
 const links = [
@@ -105,6 +107,7 @@ const Panel: NextPage = () => {
         />
       </div>
       {/* Item Links */}
+      {dataLoaded && (
       <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
         <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
         <span className="capitalize text-gray1">whitepapers for all the projects</span>
@@ -117,6 +120,33 @@ const Panel: NextPage = () => {
           ))}
         </div>
       </div>
+      )}
+      {/* Item List */}
+      {dataLoaded && (
+        <div className="flex flex-col w-full mt-20 space-y-20 bg-white rounded-md py-14 shadow-table">
+          {/* Table Header */}
+          <div className="flex items-center justify-between mx-7">
+            <span className="text-2xl font-semibold uppercase">Items in VectorDB</span>
+            <div className="flex items-center justify-between space-x-5">
+              <div className="flex items-center h-12 p-2 space-x-2 bg-[#F9FBFF] rounded-xl">
+                <SvgSearch className="text-dark-gray3" />
+                <input
+                  type="text"
+                  className="w-full text-gray-600 border-0 rounded-md bg-inherit ring-0 placeholder:text-gray-400 focus:ring-0 focus:outline-none focus-visible:ring-0"
+                  placeholder="Search"
+                />
+              </div>
+              <div className="flex items-center h-12 px-3 py-2 space-x-2 bg-[#F9FBFF] rounded-xl">
+                <span className="flex items-center space-x-1">
+                  <span className="text-[#7E7E7E]">Sort by:</span>
+                  <span className="font-semibold text-[#3D3C42]">Newest</span>
+                </span>
+                <SvgSelectDown2 />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <Footer2 />
     </div>
   );
