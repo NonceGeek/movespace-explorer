@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { SvgTwitter } from "./svg/Twitter";
 
 export const Footer = () => {
   return (
@@ -11,7 +11,7 @@ export const Footer = () => {
         }}
         href="https://twitter.com/movespacexyz"
       >
-        <Image src="/svg/twitter.svg" className="fill-gradFrom" alt="logo" width={14} height={11} />
+        <SvgTwitter className="w-4 text-gradFrom" />
         <span className="font-semibold font-poppins">Follow MoveSpace on Twitter</span>
       </Link>
     </div>
