@@ -23,7 +23,7 @@ export const Select = ({
     <div className="relative" onClick={onSelectClick}>
       <button
         type="button"
-        className="relative flex items-center justify-between gap-x-1.5 h-10 pr-2 bg-white rounded dark:bg-dark-deep ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-gradFrom dark:ring-light-gray dark:focus:ring-light-gray"
+        className="relative flex items-center justify-between gap-x-1.5 h-10 pr-2 bg-white rounded-lg dark:bg-dark-deep ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-gradFrom dark:ring-light-gray dark:focus:ring-light-gray"
         aria-haspopup="listbox"
         aria-expanded="true"
         aria-labelledby="listbox-label"
