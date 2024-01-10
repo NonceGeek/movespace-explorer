@@ -7,7 +7,7 @@ type SelectProps = {
   selectedOption: number | null;
   // add one prop onSelectClick which is a function
   onSelectClick: () => void;
-  btnText: string;
+  text: string;
   onSelectOptionClick: (index: number) => void;
 };
 
@@ -16,7 +16,7 @@ export const Select = ({
   options,
   selectedOption,
   onSelectClick,
-  btnText,
+  text,
   onSelectOptionClick,
 }: SelectProps) => {
   return (
@@ -29,7 +29,7 @@ export const Select = ({
         aria-labelledby="listbox-label"
       >
         <span className="flex items-center justify-center flex-grow w-full px-2 py-1 whitespace-nowrap text-light-gray3 dark:text-dark-gray3">
-          {btnText}
+          {text}
         </span>
         <SvgSelectDown className={`w-5 h-5 text-light-gray3 ${showSelect && "rotate-180"}`} />
       </button>
