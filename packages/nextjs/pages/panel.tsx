@@ -14,7 +14,7 @@ const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
 const sampleItem = {
   uuid: "4e2f059f-391d-4fa8-9a8d-2732ae0cc7ca",
   content: "Bitcoin: A peer-to-peer electronic cash system",
-  creator: "0x32dcd24235d8d1ff65a5ba44b4d74d393a9f6821",
+  metadata: "0x32dcd24235d8d1ff65a5ba44b4d74d393a9f6821",
 };
 const links = [
   {
@@ -28,6 +28,23 @@ const links = [
   },
   {
     text: "tagger_Smart_COntract",
+  },
+];
+const itemHeader = [
+  {
+    title: "ID",
+  },
+  {
+    title: "UUID",
+  },
+  {
+    title: "CONTENT",
+  },
+  {
+    title: "METADATA",
+  },
+  {
+    title: "TAG ITEMS",
   },
 ];
 
@@ -68,6 +85,20 @@ const Panel: NextPage = () => {
       });
     }
     setItems(mockData);
+  };
+
+  const TagButton = ({ tagged }: { tagged: boolean }) => {
+    return (
+      <div
+        className={`flex items-center justify-center w-[106px] h-[38px] rounded-full text-lg font-medium ${
+          !tagged
+            ? "bg-[#CFCFCF] border-[#B5B5B5] border-[1.5px] box-border cursor-pointer"
+            : "bg-gradient-to-r from-gradFrom to-gradTo text-white"
+        }`}
+      >
+        {tagged ? "Tagged" : "Tag"}
+      </div>
+    );
   };
 
   return (
@@ -153,6 +184,32 @@ const Panel: NextPage = () => {
               </div>
             </div>
           </div>
+          {/* Table Body */}
+          {items.length > 0 && (
+            <div className="flex flex-col w-full">
+              {/* ItemList Header */}
+              <div className="flex items-center justify-between mx-12">
+                {itemHeader.map((headerItem, index) => (
+                  <span className="text-gray-400" key={index}>
+                    {headerItem.title}
+                  </span>
+                ))}
+              </div>
+              <div className="w-full h-px mt-5 bg-gray-100"></div>
+              {/* ItemList Body */}
+              <div className="flex flex-col mx-12">
+                {items.map((item, index) => (
+                  <div className="flex items-center justify-between h-20 border-b border-gray-100" key={index}>
+                    <span>{index + 1}</span>
+                    <span className="w-24 line-clamp-1">{item.uuid}</span>
+                    <span className="w-24 line-clamp-1">{item.content}</span>
+                    <span className="w-40 line-clamp-1">{item.metadata}</span>
+                    <TagButton tagged={item.tagged} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {/* Table Footer */}
           <div className="flex items-center justify-between mx-14">
             <span className="text-lg font-medium text-[#B5B7C0]">Showing data 1 to 8 of 256K entries</span>
