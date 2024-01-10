@@ -25,8 +25,8 @@ export const GradientBorderButton = ({ btnText, disabled = false, onClick }: Gra
         }`}
       ></div>
       <div
-        className={`box-border z-10 flex items-center justify-center h-full px-8 border-2 border-transparent rounded-full bg-clip-padding bg-light dark:bg-dark dark:text-white ${
-          disabled && "text-gray-300 dark:text-gray-600"
+        className={`box-border z-10 flex items-center justify-center h-full px-8 border-2 border-transparent rounded-full bg-clip-padding bg-light select-none dark:bg-dark ${
+          !disabled ? "dark:text-white" : "text-gray-300 dark:text-gray-600"
         }`}
       >
         {btnText}
