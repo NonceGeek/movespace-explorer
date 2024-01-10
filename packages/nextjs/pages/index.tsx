@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
+import { Footer } from "~~/components/Footer";
 import { SvgSelectDown } from "~~/components/svg/SelectDown";
 import { SvgSelected } from "~~/components/svg/Selected";
 
@@ -416,6 +417,7 @@ const ETHSpace: NextPage = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
