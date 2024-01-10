@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
 
@@ -60,7 +61,7 @@ const Panel: NextPage = () => {
         </div>
       </div>
       {/* Action Buttons */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center space-x-8">
         <Select
           showSelect={showSelect}
           options={selectOptions}
@@ -69,6 +70,7 @@ const Panel: NextPage = () => {
           btnText={btnText}
           onSelectOptionClick={onSelectOptionClick}
         />
+        <GradientBorderButton btnText="Open dataset" />
       </div>
     </div>
   );
