@@ -39,15 +39,17 @@ const Panel: NextPage = () => {
       {/* Banner */}
       <div className="flex items-center justify-between">
         {/* Left */}
-        <div className="flex flex-col w-3/5 space-y-4">
+        <div className="flex flex-col w-[813px] space-y-4 shrink-0">
           {/* Upper */}
           <div className="flex flex-col space-y-9">
             {/* Intro Text */}
             <div className="flex flex-col space-y-6">
-              <div className="text-6xl font-medium uppercase">Label data for AI training and earn rewards!</div>
-              <div className="text-4xl">MoveSpace AI data labeler platform</div>
+              <div className="text-6xl font-medium tracking-[0.6px] uppercase">
+                Label data for AI training and earn rewards!
+              </div>
+              <div className="text-4xl tracking-[0.6px]">MoveSpace AI data labeler platform</div>
             </div>
-            <div className="w-full h-px shrink-0 bg-purple-to-blue"></div>
+            <div className="w-[615px] h-px shrink-0 bg-purple-to-blue"></div>
           </div>
           {/* Lower */}
           <div className="flex items-center space-x-3 lower">
@@ -56,7 +58,7 @@ const Panel: NextPage = () => {
           </div>
         </div>
         {/* Right */}
-        <div className="">
+        <div className="-translate-x-12 shrink-0">
           <Image src="/assets/artwork.png" width={600} height={574} alt="artwork" />
         </div>
       </div>
