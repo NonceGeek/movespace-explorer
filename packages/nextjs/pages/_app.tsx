@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
-import { Plus_Jakarta_Sans, Poppins } from "next/font/google";
+import { Montserrat, Plus_Jakarta_Sans, Poppins } from "next/font/google";
 import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { ThemeProvider } from "next-themes";
@@ -24,6 +24,10 @@ const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   weight: ["400", "500", "600", "700"],
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
 });
 
 const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
@@ -58,6 +62,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
                 :root {
                   --font-plus-jakarta-sans: ${plus.style.fontFamily};
                   --font-poppins: ${poppins.style.fontFamily};
+                  --font-montserrat: ${montserrat.style.fontFamily};
                 }
               `}
             </style>

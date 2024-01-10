@@ -113,6 +113,7 @@ export const theme = {
       "bai-jamjuree": ["Bai Jamjuree", "sans-serif"],
       plus: ["--font-plus-jakarta-sans", ...fontFamily.sans],
       poppins: ["--font-poppins", ...fontFamily.sans],
+      montserrat: ["--font-montserrat", ...fontFamily.sans],
     },
     spacing: {
       base: "1024px",
