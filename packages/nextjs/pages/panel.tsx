@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { NextPage } from "next";
+import { Footer2 } from "~~/components/Footer2";
 import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Select } from "~~/components/Select";
 import { SvgBNB } from "~~/components/svg/BNB";
@@ -74,6 +75,7 @@ const Panel: NextPage = () => {
         />
         <GradientBorderButton btnText="Open dataset" />
       </div>
+      <Footer2 />
     </div>
   );
 };
