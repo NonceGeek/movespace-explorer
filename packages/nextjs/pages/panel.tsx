@@ -26,7 +26,7 @@ const links = [
 const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [btnText, setBtnText] = useState("Select a DataSet");
+  const [text, setText] = useState("Select a DataSet");
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
@@ -68,7 +68,7 @@ const Panel: NextPage = () => {
           options={selectOptions}
           selectedOption={selectedOption}
           onSelectClick={() => setShowSelect(!showSelect)}
-          btnText={btnText}
+          text={text}
           onSelectOptionClick={onSelectOptionClick}
         />
       {/* Item Links */}

@@ -140,6 +140,7 @@ export const theme = {
       "dark-blue": "#212E6D",
       "enter-bg": "#2222224D",
       "enter-bg-dark": "#DDDDDD4D",
+      gray1: "#718096",
     },
     backgroundImage: {
       "purple-to-blue": "linear-gradient(267.03deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%);",
