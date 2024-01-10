@@ -76,8 +76,8 @@ const Panel: NextPage = () => {
       <div
         className={`flex items-center justify-center w-[106px] h-[38px] rounded-full text-lg font-medium ${
           !tagged
-            ? "bg-[#CFCFCF] border-[#B5B5B5] border-[1.5px] box-border cursor-pointer"
-            : "bg-gradient-to-r from-gradFrom to-gradTo text-white"
+            ? "bg-[#CFCFCF] border-[#B5B5B5] border-[1.5px] box-border cursor-pointer dark:bg-[#3D3D3D] dark:text-white"
+            : "bg-gradient-to-r from-gradFrom to-gradTo text-white dark:text-dark"
         }`}
       >
         {tagged ? "Tagged" : "Tag"}
@@ -94,7 +94,7 @@ const Panel: NextPage = () => {
           {/* Upper */}
           <div className="flex flex-col space-y-9">
             {/* Intro Text */}
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6 dark:text-white">
               <div className="text-6xl font-medium tracking-[0.6px] uppercase">
                 Label data for AI training and earn rewards!
               </div>
@@ -105,7 +105,9 @@ const Panel: NextPage = () => {
           {/* Lower */}
           <div className="flex items-center space-x-3 lower">
             <SvgBNB className="text-yellow-400" />
-            <div className="text-xl text-light-gray">Powered by BNB Greenfield , BNBChain & opBNB</div>
+            <div className="text-xl text-light-gray dark:text-dark-gray">
+              Powered by BNB Greenfield , BNBChain & opBNB
+            </div>
           </div>
         </div>
         {/* Right */}
@@ -132,7 +134,7 @@ const Panel: NextPage = () => {
       {/* Item Links */}
       {dataLoaded && (
         <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
-          <span className="text-2xl font-bold">VIEW DATA ITEMS IN BUCKET</span>
+          <span className="text-2xl font-bold dark:text-light-deep">VIEW DATA ITEMS IN BUCKET</span>
           <span className="capitalize text-gray1">whitepapers for all the projects</span>
           <div className="flex items-center space-x-5 text-sm font-medium uppercase text-gray1">
             {links.map((linkItem, index) => (
@@ -146,12 +148,12 @@ const Panel: NextPage = () => {
       )}
       {/* Item List */}
       {dataLoaded && (
-        <div className="flex flex-col w-full mt-20 space-y-20 bg-white rounded-md py-14 shadow-table">
+        <div className="flex flex-col w-full mt-20 space-y-20 bg-white rounded-md py-14 shadow-table dark:bg-dark dark:box-border dark:border-2 dark:border-dark-gray3 dark:shadow-none">
           {/* Table Header */}
           <div className="flex items-center justify-between mx-7">
-            <span className="text-2xl font-semibold uppercase">Items in VectorDB</span>
+            <span className="text-2xl font-semibold uppercase dark:text-white">Items in VectorDB</span>
             <div className="flex items-center justify-between space-x-5">
-              <div className="flex items-center h-12 p-2 space-x-2 bg-[#F9FBFF] rounded-xl">
+              <div className="flex items-center h-12 p-2 space-x-2 bg-[#F9FBFF] rounded-xl dark:bg-dark">
                 <SvgSearch className="text-dark-gray3" />
                 <input
                   type="text"
@@ -159,7 +161,7 @@ const Panel: NextPage = () => {
                   placeholder="Search"
                 />
               </div>
-              <div className="flex items-center h-12 px-3 py-2 space-x-2 bg-[#F9FBFF] rounded-xl">
+              <div className="flex items-center h-12 px-3 py-2 space-x-2 bg-[#F9FBFF] rounded-xl dark:bg-dark">
                 <span className="flex items-center space-x-1">
                   <span className="text-[#7E7E7E]">Sort by:</span>
                   <span className="font-semibold text-[#3D3C42]">Newest</span>
@@ -172,37 +174,40 @@ const Panel: NextPage = () => {
           {items.length > 0 && (
             <div className="flex flex-col w-full">
               {/* ItemList Header */}
-              <div className="flex items-center justify-between mx-12 uppercase">
+              <div className="flex items-center justify-between mx-12 text-gray-400 uppercase dark:text-gray3">
                 <div className="flex">
-                  <span className="w-[220px] text-gray-400">ID</span>
-                  <span className="w-[100px] mr-[70px] text-gray-400">UUID</span>
-                  <span className="w-[100px] mr-[100px] text-gray-400">CONTENT</span>
-                  <span className="w-[360px] text-gray-400">METADATA</span>
+                  <span className="w-[220px]">ID</span>
+                  <span className="w-[100px] mr-[70px]">UUID</span>
+                  <span className="w-[100px] mr-[100px]">CONTENT</span>
+                  <span className="w-[360px]">METADATA</span>
                 </div>
-                <span className="pr-3 text-gray-400">TAG ITEMS</span>
+                <span className="pr-3">TAG ITEMS</span>
               </div>
               <div className="w-full h-px mt-5 bg-gray-100"></div>
               {/* ItemList Body */}
               <div className="flex flex-col mx-12">
                 {items.map((item, index) => (
-                  <div className="flex items-center justify-between h-20 border-b border-gray-100" key={index}>
+                  <div
+                    className="flex items-center justify-between h-20 border-b border-gray-100 dark:text-gray3"
+                    key={index}
+                  >
                     <div className="flex items-center">
                       <span className="w-[220px]">{index + 1}</span>
                       <span className="w-[100px] mr-[70px] relative group">
                         <span className="line-clamp-1">{item.uuid}</span>
-                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.uuid}
                         </span>
                       </span>
                       <span className="w-[100px] mr-[100px] relative group">
                         <span className="line-clamp-1">{item.content}</span>
-                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.content}
                         </span>
                       </span>
                       <span className="w-[360px] relative group">
                         <span className="line-clamp-1">{item.metadata}</span>
-                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline">
+                        <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.metadata}
                         </span>
                       </span>
