@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
-import { SvgSelected } from "~~/components/svg/Select";
-import { SelectDown } from "~~/components/svg/SelectDown";
+import { SvgSelectDown } from "~~/components/svg/SelectDown";
+import { SvgSelected } from "~~/components/svg/Selected";
 
 //定义一个新的数据类型来记录后端返回的数据
 export type resultByDataset = {
@@ -242,7 +242,7 @@ const ETHSpace: NextPage = () => {
                   {options[selectedOption]}
                 </span>
                 <span className="flex items-center">
-                  <SelectDown className={`text-light-gray3 ${showSelect && "rotate-180"}`} />
+                  <SvgSelectDown className={`text-light-gray3 ${showSelect && "rotate-180"}`} />
                 </span>
               </button>
               {showSelect && (
