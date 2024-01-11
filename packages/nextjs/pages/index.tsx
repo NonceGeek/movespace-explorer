@@ -4,6 +4,7 @@ import Link from "next/link";
 import { NextPage } from "next";
 import { useTheme } from "next-themes";
 import { Footer } from "~~/components/Footer";
+import { SvgLabel } from "~~/components/svg/Label";
 import { SvgLoading } from "~~/components/svg/Loading";
 import { SvgSelectDown } from "~~/components/svg/SelectDown";
 import { SvgSelected } from "~~/components/svg/Selected";
@@ -349,7 +350,7 @@ const ETHSpace: NextPage = () => {
                         <div className="items-center hidden space-x-20 group-hover:flex">
                           <Link href={`/tag?contract_name=bodhi&item_id=${item.id}`}>
                             <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
-                              <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
+                              <SvgLabel />
                               <span className="uppercase">Label this item!</span>
                             </span>
                           </Link>
@@ -403,7 +404,7 @@ const ETHSpace: NextPage = () => {
                           </div>
                           <Link href={`/debug?uuid=${item.id}`}>
                             <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
-                              <Image src="/svg/label.svg" width={10} height={13} alt="tag" />
+                              <SvgLabel />
                               <span className="uppercase">Label this item! (Comming Soon..)</span>
                             </span>
                           </Link>
