@@ -423,7 +423,7 @@ const ETHSpace: NextPage = () => {
         </div>
       </div>
       {showMask && (
-        <div className="fixed top-0 left-0 right-0 flex items-center justify-center h-screen overflow-hidden text-white bg-black/30">
+        <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center h-screen overflow-hidden text-white bg-black/30 dark:bg-dark3/20 backdrop-blur">
           <SvgLoading className="w-12 h-12" />
           <span className="text-xl">Searching...</span>
         </div>
