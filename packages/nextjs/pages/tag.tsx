@@ -21,13 +21,18 @@ const Tag: NextPage = () => {
 
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
+    console.log("🚀 ~ useEffect ~ queryParameters:", queryParameters);
     const itemId = queryParameters.get("item_id");
+    console.log("🚀 ~ useEffect ~ itemId:", itemId);
     const contractN = queryParameters.get("contract_name");
+    console.log("🚀 ~ useEffect ~ contractN:", contractN);
     setItemId(itemId);
     setContractName(contractN);
   }, []);
 
   useEffect(() => {
+    console.log("🚀 ~ useEffect ~ selectedContract:", selectedContract);
+    console.log("🚀 ~ useEffect ~ contractNames:", contractNames);
     if (!contractNames.includes(selectedContract)) {
       setSelectedContract(contractNames[0]);
     }
@@ -36,7 +41,7 @@ const Tag: NextPage = () => {
   return (
     <>
       <MetaHeader title="Tag Item | MoveSpace" description="Tag MoveSpace Items in Easy Way" />
-      <div className="flex flex-col items-center justify-center py-8 gap-y-6 lg:gap-y-8 lg:py-12">
+      <div className="flex flex-col mx-auto w-content font-poppins">
         {contractNames.length === 0 ? (
           <p className="text-3xl mt-14">No contracts found!</p>
         ) : (
