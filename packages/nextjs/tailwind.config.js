@@ -133,6 +133,7 @@ export const theme = {
       "light-gray3": "#484848",
       dark: "#131313",
       dark2: "#2C2C2C",
+      dark3: "#D9D9D9",
       "dark-deep": "#0D0D0D",
       "dark-gray": "#D9D9D98F",
       "dark-gray2": "#191919",

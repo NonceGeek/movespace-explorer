@@ -306,17 +306,17 @@ const ETHSpace: NextPage = () => {
       </div>
       <div className="flex items-start justify-between mx-auto space-x-5 pt-9 w-base font-poppins">
         <Image src="/assets/prompt-blue.png" width={40} height={40} alt="prompt" />
-        <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white dark:bg-dark-deep">
+        <div className="w-full h-[678px] px-[70px] py-8 overflow-y-scroll bg-white dark:bg-dark-deep dark:text-dark3">
           {/* 如果搜索后 res 数组元素数为0，则显示 No data found. Please try with another keyword. */}
           {isEmpty && (
             <div className="flex flex-col items-center justify-center w-full h-full">
-              <span className="text-xl font-semibold text-light-gray font-poppins dark:text-dark-gray">
+              <span className="text-xl font-semibold text-light-gray font-poppins">
                 No data found. Please try with another keyword.
               </span>
             </div>
           )}
           {res.map((r, index) => (
-            <div key={index} className="dark:text-dark-blue">
+            <div key={index} className="">
               {r.results.map((item, index2) => (
                 <div
                   key={index2}
@@ -335,7 +335,7 @@ const ETHSpace: NextPage = () => {
                           <span>
                             <span>Bodhi ID(view the full content in Bodhi👉): </span>
                             <a href={"https://bodhi.wtf/" + item.metadata.id} target="_blank" rel="noreferrer">
-                              <span className="px-3 py-1 rounded-lg bg-light-gray2 dark:bg-dark dark:text-dark-blue">
+                              <span className="px-3 py-1 rounded-lg bg-light-gray2 dark:bg-dark">
                                 {item.metadata.id}
                               </span>
                             </a>
