@@ -222,7 +222,7 @@ const ETHSpace: NextPage = () => {
       <div className="pt-8 text-sm font-medium text-light-gray font-poppins dark:text-dark-gray">
         AI-powered data search explorer & data labeling platform
       </div>
-      <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-light-gray2 dark:bg-dark-gray2">
+      <div className="search-bar mt-9 w-[600px] h-[42px] py-2 px-4 flex justify-between items-center rounded-full bg-light-gray2 dark:bg-dark-gray2 dark:border dark:border-dark3">
         <div className="flex items-center h-full search-input">
           <Image src="/svg/search.svg" width={12.5} height={12.5} alt="search" />
           <input
@@ -349,7 +349,7 @@ const ETHSpace: NextPage = () => {
                         </div>
                         <div className="items-center hidden space-x-20 group-hover:flex">
                           <Link href={`/tag?contract_name=bodhi&item_id=${item.id}`}>
-                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark3">
                               <SvgLabel />
                               <span className="uppercase">Label this item!</span>
                             </span>
@@ -364,7 +364,7 @@ const ETHSpace: NextPage = () => {
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
                         <div className="items-center hidden space-x-20 group-hover:flex">
-                          <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input dark:bg-dark">
+                          <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input dark:bg-dark dark:border dark:border-dark3">
                             <div className="flex items-center flex-grow">
                               <Image src="/svg/search.svg" width={12} height={12} alt="search" />
                               <input
@@ -403,7 +403,7 @@ const ETHSpace: NextPage = () => {
                             </div>
                           </div>
                           <Link href={`/debug?uuid=${item.id}`}>
-                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark">
+                            <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark3">
                               <SvgLabel />
                               <span className="uppercase">Label this item! (Comming Soon..)</span>
                             </span>
