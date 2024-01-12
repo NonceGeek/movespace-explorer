@@ -55,7 +55,7 @@ const ScaffoldEthApp = ({ Component, pageProps }: AppProps) => {
         avatar={BlockieAvatar}
         theme={isDarkTheme ? darkTheme() : lightTheme()}
       >
-        <ThemeProvider attribute="class">
+        <ThemeProvider defaultTheme="dark" attribute="class">
           <div className="flex flex-col min-h-screen bg-light dark:bg-dark">
             <style jsx global>
               {`
