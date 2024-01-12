@@ -21,18 +21,13 @@ const Tag: NextPage = () => {
 
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
-    console.log("🚀 ~ useEffect ~ queryParameters:", queryParameters);
     const itemId = queryParameters.get("item_id");
-    console.log("🚀 ~ useEffect ~ itemId:", itemId);
     const contractN = queryParameters.get("contract_name");
-    console.log("🚀 ~ useEffect ~ contractN:", contractN);
     setItemId(itemId);
     setContractName(contractN);
   }, []);
 
   useEffect(() => {
-    console.log("🚀 ~ useEffect ~ selectedContract:", selectedContract);
-    console.log("🚀 ~ useEffect ~ contractNames:", contractNames);
     if (!contractNames.includes(selectedContract)) {
       setSelectedContract(contractNames[0]);
     }
