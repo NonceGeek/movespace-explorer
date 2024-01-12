@@ -41,39 +41,16 @@ const Tag: NextPage = () => {
   return (
     <>
       <MetaHeader title="Tag Item | MoveSpace" description="Tag MoveSpace Items in Easy Way" />
-      <div className="flex flex-col mx-auto w-content font-poppins">
-        {contractNames.length === 0 ? (
-          <p className="text-3xl mt-14">No contracts found!</p>
-        ) : (
-          <>
-            {contractNames.length > 1 && (
-              <div className="flex flex-row flex-wrap w-full gap-2 px-6 pb-1 max-w-7xl lg:px-10">
-                {contractNames.map(contractName => (
-                  <button
-                    className={`btn btn-secondary btn-sm normal-case font-thin ${
-                      contractName === selectedContract ? "bg-base-300" : "bg-base-100"
-                    }`}
-                    key={contractName}
-                    onClick={() => setSelectedContract(contractName)}
-                  >
-                    {contractName}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {contractName === "bodhi"
-              ? contractNames.map(contractName => (
+        {contractNames.length === 0 && <p className="text-3xl mt-14">No contracts found!</p>}
+        {contractName === "bodhi" &&
+          contractNames.map(contractName => (
                   <ContractUIForBodhiTagger
                     key={contractName}
                     contractName={contractName}
                     itemId={itemId}
                     className={contractName === selectedContract ? "" : "hidden"}
                   />
-                ))
-              : null}
-          </>
-        )}
+          ))}
       </div>
     </>
   );
