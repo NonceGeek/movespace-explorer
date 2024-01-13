@@ -75,22 +75,25 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
       {/* 左侧栏 */}
       <div className="flex flex-col space-y-6 w-card shrink-0">
         {/* 第一个卡片 */}
-        <div className="flex flex-col p-2.5 space-y-1 bg-white shadow-card rounded-2xl">
+        <div className="flex flex-col p-2.5 space-y-1 bg-white shadow-card rounded-2xl dark:bg-dark-deep dark:shadow-none">
           <span className="text-sm font-bold text-dark-gray3">{contractName}</span>
           <Address address={deployedContractData.address} size="xs" />
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-normal text-light-gray">Balance:</span>
-            <Balance address={deployedContractData.address} className="space-x-1 text-sm font-semibold text-dark2" />
+            <span className="text-xs font-normal text-light-gray dark:text-dark-gray">Balance:</span>
+            <Balance
+              address={deployedContractData.address}
+              className="space-x-1 text-sm font-semibold text-dark2 dark:text-dark3"
+            />
           </div>
           {configuredNetwork && (
             <div className="flex items-center space-x-2">
-              <span className="text-xs font-normal text-light-gray">Network:</span>
-              <span className="text-sm font-semibold text-dark2">{configuredNetwork.name}</span>
+              <span className="text-xs font-normal text-light-gray dark:text-dark-gray">Network:</span>
+              <span className="text-sm font-semibold text-dark2 dark:text-dark3">{configuredNetwork.name}</span>
             </div>
           )}
         </div>
         {/* 第二个卡片 */}
-        <div className="flex flex-col p-2.5 space-y-1 bg-card shadow-card rounded-2xl">
+        <div className="flex flex-col p-2.5 space-y-1 bg-card shadow-card rounded-2xl dark:bg-dark dark:shadow-none">
           <ContractVariables
             refreshDisplayVariables={refreshDisplayVariables}
             deployedContractData={deployedContractData}
@@ -99,7 +102,7 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
       </div>
       {/* 中间主要区域 */}
       <div className="flex flex-col w-full space-y-9">
-        <div className="flex flex-col p-8 space-y-2 text-xl font-medium bg-white rounded-2xl">
+        <div className="flex flex-col p-8 space-y-2 text-xl font-medium bg-white rounded-2xl dark:bg-dark-deep dark:text-white">
           <span className="flex items-center space-x-2">
             <span className="font-semibold">Tag:</span>
             <span>{itemId}</span>
@@ -121,7 +124,7 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
             <span>TODO</span>
           </span>
         </div>
-        <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl">
+        <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl dark:bg-dark-deep">
           <span className="font-semibold text-dark-gray3">tagItem</span>
           <div className="flex items-center space-x-6">
             <input
@@ -130,25 +133,25 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
                 setTag(e.target.value);
               }}
               placeholder="Enter your text"
-              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark"
             />
             <div
               onClick={() => {
                 tagItem(itemId, tag);
               }}
-              className="px-4 py-2 text-sm font-medium text-white rounded cursor-pointer bg-gradient-to-r from-gradFrom to-gradTo"
+              className="px-4 py-2 text-sm font-medium text-white rounded cursor-pointer bg-gradient-to-r from-gradFrom to-gradTo dark:text-dark"
             >
               Add
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card">
+          <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card dark:bg-[#1B1B1B]">
             {tags.map((tag, index) => (
               <span
-                className="flex items-center px-4 py-2 space-x-2 text-sm font-medium text-white rounded bg-gradFrom"
+                className="flex items-center px-4 py-2 space-x-2 text-sm font-medium text-white rounded bg-gradFrom dark:text-dark"
                 key={index}
               >
                 <span>{tag}</span>
-                <SvgClose />
+                <SvgClose className="dark:text-dark" />
               </span>
             ))}
           </div>

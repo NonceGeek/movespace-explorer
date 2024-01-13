@@ -12,7 +12,7 @@ import {
   DocumentDuplicateIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { Address, Balance, BlockieAvatar } from "~~/components/scaffold-eth";
+import { Address, BlockieAvatar } from "~~/components/scaffold-eth";
 import { useAutoConnect, useNetworkColor } from "~~/hooks/scaffold-eth";
 import { getBlockExplorerAddressLink, getTargetNetwork } from "~~/utils/scaffold-eth";
 
@@ -41,7 +41,7 @@ export const RainbowKitCustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="border-none font-poppins text-[15px] font-semibold outline-none capitalize h-12 px-4 rounded-full bg-gradient-to-r from-gradFrom to-gradTo text-white dark:text-dark-deep"
+                    className="h-12 px-4 text-sm font-semibold text-white capitalize border-none rounded-full outline-none font-poppins bg-gradient-to-r from-gradFrom to-gradTo dark:text-dark-deep"
                     onClick={openConnectModal}
                     type="button"
                   >
@@ -89,33 +89,27 @@ export const RainbowKitCustomConnectButton = () => {
 
               return (
                 <div className="flex items-center justify-end px-2">
-                  <div className="flex flex-col items-center mr-1">
-                    <Balance address={account.address} className="h-auto min-h-0" />
-                    <span className="text-xs" style={{ color: networkColor }}>
-                      {chain.name}
-                    </span>
-                  </div>
                   <div className="leading-3 dropdown dropdown-end">
                     <label
                       tabIndex={0}
-                      className="btn btn-secondary btn-sm pl-0 pr-2 shadow-md dropdown-toggle gap-0 !h-auto"
+                      className="flex items-center h-12 px-4 space-x-2 text-sm font-semibold text-white capitalize border-none rounded-full font-poppins bg-gradient-to-r from-gradFrom to-gradTo dark:text-dark-deep dropdown-toggle btn"
                     >
                       <BlockieAvatar address={account.address} size={30} ensImage={account.ensAvatar} />
-                      <span className="ml-2 mr-1">{account.displayName}</span>
-                      <ChevronDownIcon className="w-4 h-6 ml-2 sm:ml-0" />
+                      <span className="font-semibold">{account.displayName}</span>
+                      <ChevronDownIcon className="w-4 h-6" />
                     </label>
                     <ul
                       tabIndex={0}
-                      className="dropdown-content menu z-[2] p-2 mt-2 shadow-center shadow-accent bg-base-200 rounded-box gap-1"
+                      className="z-10 flex flex-col py-2 mt-2 space-y-0.5 bg-white border dropdown-content menu border-dark-gray3 rounded-xl capitalize dark:bg-dark-deep dark:border-dark-gray3 dark:text-light-gray3"
                     >
                       <li>
                         {addressCopied ? (
-                          <div className="btn-sm !rounded-xl flex gap-3 py-3">
+                          <div className="flex gap-3 py-3 btn-sm dark:hover:text-light-gray2">
                             <CheckCircleIcon
                               className="w-4 h-6 ml-2 text-xl font-normal cursor-pointer sm:ml-0"
                               aria-hidden="true"
                             />
-                            <span className=" whitespace-nowrap">Copy address</span>
+                            <span className="whitespace-nowrap">Copy address</span>
                           </div>
                         ) : (
                           <CopyToClipboard
@@ -127,24 +121,24 @@ export const RainbowKitCustomConnectButton = () => {
                               }, 800);
                             }}
                           >
-                            <div className="btn-sm !rounded-xl flex gap-3 py-3">
+                            <div className="flex gap-3 py-3 btn-sm dark:hover:text-light-gray2">
                               <DocumentDuplicateIcon
                                 className="w-4 h-6 ml-2 text-xl font-normal cursor-pointer sm:ml-0"
                                 aria-hidden="true"
                               />
-                              <span className=" whitespace-nowrap">Copy address</span>
+                              <span className="whitespace-nowrap">Copy address</span>
                             </div>
                           </CopyToClipboard>
                         )}
                       </li>
                       <li>
-                        <label htmlFor="qrcode-modal" className="btn-sm !rounded-xl flex gap-3 py-3">
+                        <label htmlFor="qrcode-modal" className="flex gap-3 py-3 btn-sm dark:hover:text-light-gray2">
                           <QrCodeIcon className="w-4 h-6 ml-2 sm:ml-0" />
                           <span className="whitespace-nowrap">View QR Code</span>
                         </label>
                       </li>
                       <li>
-                        <button className="menu-item btn-sm !rounded-xl flex gap-3 py-3" type="button">
+                        <button className="flex gap-3 py-3 menu-item btn-sm dark:hover:text-light-gray2" type="button">
                           <ArrowTopRightOnSquareIcon className="w-4 h-6 ml-2 sm:ml-0" />
                           <a
                             target="_blank"
@@ -158,11 +152,14 @@ export const RainbowKitCustomConnectButton = () => {
                       </li>
                       <li>
                         <button
-                          className="menu-item text-error btn-sm !rounded-xl flex gap-3 py-3"
+                          className="flex gap-3 py-3 menu-item text-error btn-sm dark:hover:text-light-gray2"
                           type="button"
                           onClick={() => disconnect()}
                         >
-                          <ArrowLeftOnRectangleIcon className="w-4 h-6 ml-2 sm:ml-0" /> <span>Disconnect</span>
+                          <ArrowLeftOnRectangleIcon className="w-4 h-6 ml-2 sm:ml-0" />
+                          <span className="whitespace-nowrap dark:text-light-gray3 dark:hover:text-light-gray2">
+                            Disconnect
+                          </span>
                         </button>
                       </li>
                     </ul>

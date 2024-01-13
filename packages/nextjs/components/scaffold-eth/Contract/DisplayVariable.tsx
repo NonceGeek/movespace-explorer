@@ -36,7 +36,7 @@ export const DisplayVariable = ({ contractAddress, abiFunction, refreshDisplayVa
   return (
     <div className="flex flex-col">
       <div className="flex items-center space-x-1">
-        <div className="text-sm break-all text-dark-gray3">{abiFunction.name}</div>
+        <div className="text-sm break-all text-dark-gray3 dark:text-dark-gray">{abiFunction.name}</div>
         <button className="btn btn-ghost btn-xs" onClick={async () => await refetch()}>
           {isFetching ? (
             <span className="loading loading-spinner loading-xs"></span>
@@ -45,7 +45,7 @@ export const DisplayVariable = ({ contractAddress, abiFunction, refreshDisplayVa
           )}
         </button>
       </div>
-      <div className="flex flex-col text-sm font-semibold text-dark2">
+      <div className="flex flex-col text-sm font-semibold text-dark2 dark:text-dark3">
         <div
           className={`break-all block transition bg-transparent ${
             showAnimation ? "bg-warning rounded-sm animate-pulse-fast" : ""

@@ -77,7 +77,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   }
 
   return (
-    <div className="flex items-center text-light-gray">
+    <div className="flex items-center text-light-gray dark:text-dark-gray3">
       <div className="flex-shrink-0">
         <BlockieAvatar address={address} ensImage={ensAvatar} size={24} />
       </div>
