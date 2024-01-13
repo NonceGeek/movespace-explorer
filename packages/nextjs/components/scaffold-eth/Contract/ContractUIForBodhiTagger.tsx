@@ -3,6 +3,7 @@ import { ContractVariables } from "./ContractVariables";
 import { parseEther } from "viem";
 import { Spinner } from "~~/components/assets/Spinner";
 import { Address, Balance } from "~~/components/scaffold-eth";
+import { SvgClose } from "~~/components/svg/Close";
 import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
 import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
@@ -20,13 +21,8 @@ type ContractUIProps = {
 export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" }: ContractUIProps) => {
   const [refreshDisplayVariables] = useReducer(value => !value, false);
   const configuredNetwork = getTargetNetwork();
-  // TODO: 下面的语句会执行12次，是什么原因？
-  // console.log("🚀 ~ ContractUIForBodhiTagger ~ configuredNetwork:", configuredNetwork);
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  // console.log("🚀 ~ ContractUIForBodhiTagger ~ deployedContractLoading:", deployedContractLoading);
-  // console.log("🚀 ~ ContractUIForBodhiTagger ~ deployedContractData:", deployedContractData);
-  // const networkColor = useNetworkColor();
 
   const [tag, setTag] = useState("");
 
@@ -47,6 +43,17 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
     writeAsync();
   };
 
+  const tags = [
+    "String uuid xxx",
+    "string meta data xxx",
+    "KEYWORD 3",
+    "KEYWORD 4",
+    "String uuid xxx",
+    "string meta data xxx",
+    "KEYWORD 3",
+    "KEYWORD 4",
+  ];
+
   if (deployedContractLoading) {
     return (
       <div className="mt-14">
@@ -66,7 +73,7 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
   return (
     <div className={`w-full flex space-x-10 ${className}`}>
       {/* 左侧栏 */}
-      <div className="flex flex-col space-y-6 w-card">
+      <div className="flex flex-col space-y-6 w-card shrink-0">
         {/* 第一个卡片 */}
         <div className="flex flex-col p-2.5 space-y-1 bg-white shadow-card rounded-2xl">
           <span className="text-sm font-bold text-dark-gray3">{contractName}</span>
@@ -91,38 +98,60 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
         </div>
       </div>
       {/* 中间主要区域 */}
-      <div className="flex flex-col col-span-1 gap-6 lg:col-span-2">
-        <p>
-          <b>Tag:</b> {itemId}
-          <br></br>
-          <b>Tag Format:</b>{" "}
-          {JSON.stringify({
-            keyword_1: "keyword_1",
-            keyword_2: "keyword_2",
-            keyword_3: "keyword_3",
-            keyword_4: "keyword_4",
-            keyword_5: "keyword_5",
-          })}
-          <br></br>
-          <b>Content:</b> TODO
-        </p>
-        <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            onChange={e => {
-              setTag(e.target.value);
-            }}
-            placeholder="Enter your text"
-            className="px-4 py-2 border rounded-l-lg w-96 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-          <button
-            onClick={() => {
-              tagItem(itemId, tag);
-            }}
-            className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-r-lg hover:bg-blue-700"
-          >
-            Tag it
-          </button>
+      <div className="flex flex-col w-full space-y-9">
+        <div className="flex flex-col p-8 space-y-2 text-xl font-medium bg-white rounded-2xl">
+          <span className="flex items-center space-x-2">
+            <span className="font-semibold">Tag:</span>
+            <span>{itemId}</span>
+          </span>
+          <span className="flex flex-col space-x-2">
+            <span className="font-semibold">Tag Format:</span>
+            <span className="break-all">
+              {JSON.stringify({
+                keyword_1: "keyword_1",
+                keyword_2: "keyword_2",
+                keyword_3: "keyword_3",
+                keyword_4: "keyword_4",
+                keyword_5: "keyword_5",
+              })}
+            </span>
+          </span>
+          <span className="flex items-center space-x-2">
+            <span className="font-semibold">Content:</span>
+            <span>TODO</span>
+          </span>
+        </div>
+        <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl">
+          <span className="font-semibold text-dark-gray3">tagItem</span>
+          <div className="flex items-center space-x-6">
+            <input
+              type="text"
+              onChange={e => {
+                setTag(e.target.value);
+              }}
+              placeholder="Enter your text"
+              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <div
+              onClick={() => {
+                tagItem(itemId, tag);
+              }}
+              className="px-4 py-2 text-sm font-medium text-white rounded cursor-pointer bg-gradient-to-r from-gradFrom to-gradTo"
+            >
+              Add
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card">
+            {tags.map((tag, index) => (
+              <span
+                className="flex items-center px-4 py-2 space-x-2 text-sm font-medium text-white rounded bg-gradFrom"
+                key={index}
+              >
+                <span>{tag}</span>
+                <SvgClose />
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
