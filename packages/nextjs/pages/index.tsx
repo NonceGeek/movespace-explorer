@@ -48,7 +48,7 @@ const ETHSpace: NextPage = () => {
   const [searchPrompt2, setSearchPrompt2] = useState("");
   // 新建一个变量，用于标记搜索结果是否为空
   const [isEmpty, setIsEmpty] = useState(false);
-  const [showMask, setShowMask] = useState(false);
+  const [searching, setSearching] = useState(false);
 
   //仅在组件挂载时执行一次获取数据集列表
 
@@ -201,7 +201,7 @@ const ETHSpace: NextPage = () => {
     // 2. wait for 1 sec to query the result.
     // 3. TODO: give a process line when waiting.
     // 4. return as a list.
-    setShowMask(true);
+    setSearching(true);
     console.log("dataset now:" + dataset);
     switch (dataset) {
       case "bodhi-text-contents":
@@ -210,7 +210,7 @@ const ETHSpace: NextPage = () => {
       default:
         await searchDataset(dataset);
     }
-    setShowMask(false);
+    setSearching(false);
   };
 
   return (
@@ -287,22 +287,25 @@ const ETHSpace: NextPage = () => {
               placeholder="Pls input the public dataset name"
             />
           )}
-          <div
-            className={`w-6 h-6 p-1 rounded ${
-              !searchPrompt ? "bg-enter-bg dark:bg-enter-bg-dark" : "bg-gradient-to-r from-gradFrom to-gradTo"
-            }`}
-            onClick={() => {
-              if (searchPrompt) {
-                handleOnClick();
-              }
-            }}
-          >
-            {!theme || theme === "light" ? (
-              <Image className="cursor-pointer" src="/svg/enter.svg" width={18} height={18} alt="enter" />
-            ) : (
-              <Image src="/svg/enter-dark.svg" width={18} height={18} alt="enter" />
-            )}
-          </div>
+          {!searching && (
+            <div
+              className={`w-6 h-6 p-1 rounded ${
+                !searchPrompt ? "bg-enter-bg dark:bg-enter-bg-dark" : "bg-gradient-to-r from-gradFrom to-gradTo"
+              }`}
+              onClick={() => {
+                if (searchPrompt) {
+                  handleOnClick();
+                }
+              }}
+            >
+              {!theme || theme === "light" ? (
+                <Image className="cursor-pointer" src="/svg/enter.svg" width={18} height={18} alt="enter" />
+              ) : (
+                <Image src="/svg/enter-dark.svg" width={18} height={18} alt="enter" />
+              )}
+            </div>
+          )}
+          {searching && <SvgLoading className="w-6 h-6 animate-spin text-dark3" />}
         </div>
       </div>
       <div className="flex items-start justify-between mx-auto space-x-5 pt-9 w-base font-poppins">
@@ -423,12 +426,6 @@ const ETHSpace: NextPage = () => {
           ))}
         </div>
       </div>
-      {showMask && (
-        <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center h-screen overflow-hidden text-white bg-black/30 dark:bg-dark3/20 backdrop-blur">
-          <SvgLoading className="w-12 h-12" />
-          <span className="text-xl">Searching...</span>
-        </div>
-      )}
       <Footer />
     </div>
   );
