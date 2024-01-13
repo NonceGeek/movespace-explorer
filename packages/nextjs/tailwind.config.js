@@ -119,6 +119,7 @@ export const theme = {
       base: "1024px",
       content: "1280px",
       input: "380px",
+      card: "260px",
     },
     colors: {
       gradFrom: "#439DFF",
@@ -143,6 +144,7 @@ export const theme = {
       "enter-bg-dark": "#DDDDDD4D",
       gray1: "#718096",
       gray3: "#B7B7C0",
+      card: "#E3F5FF",
     },
     backgroundImage: {
       "purple-to-blue": "linear-gradient(267.03deg, #00F0FF 4.01%, #5200FF 57.55%, #FF2DF7 114.97%);",
@@ -150,6 +152,7 @@ export const theme = {
     boxShadow: {
       center: "0 0 12px -2px rgb(0 0 0 / 0.05)",
       table: "0px 13px 80px 0px #E2ECF980",
+      card: "0px 2px 4px 0px #0000001F",
     },
     keyframes: {
       grow: {

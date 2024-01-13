@@ -34,26 +34,24 @@ export const DisplayVariable = ({ contractAddress, abiFunction, refreshDisplayVa
   }, [refetch, refreshDisplayVariables]);
 
   return (
-    <div className="space-y-1 pb-2">
-      <div className="flex items-center gap-2">
-        <h3 className="font-medium text-lg mb-0 break-all">{abiFunction.name}</h3>
+    <div className="flex flex-col">
+      <div className="flex items-center space-x-1">
+        <div className="text-sm break-all text-dark-gray3">{abiFunction.name}</div>
         <button className="btn btn-ghost btn-xs" onClick={async () => await refetch()}>
           {isFetching ? (
             <span className="loading loading-spinner loading-xs"></span>
           ) : (
-            <ArrowPathIcon className="h-3 w-3 cursor-pointer" aria-hidden="true" />
+            <ArrowPathIcon className="w-3 h-3 cursor-pointer" aria-hidden="true" />
           )}
         </button>
       </div>
-      <div className="text-gray-500 font-medium flex flex-col items-start">
-        <div>
-          <div
-            className={`break-all block transition bg-transparent ${
-              showAnimation ? "bg-warning rounded-sm animate-pulse-fast" : ""
-            }`}
-          >
-            {displayTxResult(result)}
-          </div>
+      <div className="flex flex-col text-sm font-semibold text-dark2">
+        <div
+          className={`break-all block transition bg-transparent ${
+            showAnimation ? "bg-warning rounded-sm animate-pulse-fast" : ""
+          }`}
+        >
+          {displayTxResult(result)}
         </div>
       </div>
     </div>

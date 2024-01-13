@@ -1,12 +1,10 @@
 import { useReducer, useState } from "react";
-import { ContractReadMethods } from "./ContractReadMethods";
 import { ContractVariables } from "./ContractVariables";
-import { ContractWriteMethods } from "./ContractWriteMethods";
 import { parseEther } from "viem";
 import { Spinner } from "~~/components/assets/Spinner";
 import { Address, Balance } from "~~/components/scaffold-eth";
-import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
+import { useDeployedContractInfo } from "~~/hooks/scaffold-eth";
+import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
 
@@ -20,16 +18,20 @@ type ContractUIProps = {
  * UI component to interface with deployed contracts.
  **/
 export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" }: ContractUIProps) => {
-  const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
+  const [refreshDisplayVariables] = useReducer(value => !value, false);
   const configuredNetwork = getTargetNetwork();
+  // TODO: 下面的语句会执行12次，是什么原因？
+  // console.log("🚀 ~ ContractUIForBodhiTagger ~ configuredNetwork:", configuredNetwork);
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  const networkColor = useNetworkColor();
+  // console.log("🚀 ~ ContractUIForBodhiTagger ~ deployedContractLoading:", deployedContractLoading);
+  // console.log("🚀 ~ ContractUIForBodhiTagger ~ deployedContractData:", deployedContractData);
+  // const networkColor = useNetworkColor();
 
   const [tag, setTag] = useState("");
 
   /* smart contract interactor */
-  const { writeAsync, isLoading, isMining } = useScaffoldContractWrite({
+  const { writeAsync } = useScaffoldContractWrite({
     contractName: contractName,
     functionName: "tagItem",
     args: [itemId, tag],
@@ -62,94 +64,65 @@ export const ContractUIForBodhiTagger = ({ contractName, itemId, className = "" 
   }
 
   return (
-    <div className={`grid grid-cols-1 lg:grid-cols-6 px-6 lg:px-10 lg:gap-12 w-full max-w-7xl my-0 ${className}`}>
-      <div className="col-span-5 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
-        <div className="col-span-1 flex flex-col">
-          <div className="bg-base-100 border-base-300 border shadow-md shadow-secondary rounded-3xl px-6 lg:px-8 mb-6 space-y-1 py-4">
-            <div className="flex">
-              <div className="flex flex-col gap-1">
-                <span className="font-bold">{contractName}</span>
-                <Address address={deployedContractData.address} />
-                <div className="flex gap-1 items-center">
-                  <span className="font-bold text-sm">Balance:</span>
-                  <Balance address={deployedContractData.address} className="px-0 h-1.5 min-h-[0.375rem]" />
-                </div>
-              </div>
-            </div>
-            {configuredNetwork && (
-              <p className="my-0 text-sm">
-                <span className="font-bold">Network</span>:{" "}
-                <span style={{ color: networkColor }}>{configuredNetwork.name}</span>
-              </p>
-            )}
-          </div>
-          <div className="bg-base-300 rounded-3xl px-6 lg:px-8 py-4 shadow-lg shadow-base-300">
-            <ContractVariables
-              refreshDisplayVariables={refreshDisplayVariables}
-              deployedContractData={deployedContractData}
-            />
-          </div>
-        </div>
-        <div className="col-span-1 lg:col-span-2 flex flex-col gap-6">
-          <p>
-            <b>Tag:</b> {itemId}
-            <br></br>
-            <b>Tag Format:</b>{" "}
-            {JSON.stringify({
-              keyword_1: "keyword_1",
-              keyword_2: "keyword_2",
-              keyword_3: "keyword_3",
-              keyword_4: "keyword_4",
-              keyword_5: "keyword_5",
-            })}
-            <br></br>
-            <b>Content:</b> TODO
-          </p>
+    <div className={`w-full flex space-x-10 ${className}`}>
+      {/* 左侧栏 */}
+      <div className="flex flex-col space-y-6 w-card">
+        {/* 第一个卡片 */}
+        <div className="flex flex-col p-2.5 space-y-1 bg-white shadow-card rounded-2xl">
+          <span className="text-sm font-bold text-dark-gray3">{contractName}</span>
+          <Address address={deployedContractData.address} size="xs" />
           <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              onChange={e => {
-                setTag(e.target.value);
-              }}
-              placeholder="Enter your text"
-              className="px-4 py-2 border w-96 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            <button
-              onClick={() => {
-                tagItem(itemId, tag);
-              }}
-              className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors"
-            >
-              Tag it
-            </button>
+            <span className="text-xs font-normal text-light-gray">Balance:</span>
+            <Balance address={deployedContractData.address} className="space-x-1 text-sm font-semibold text-dark2" />
           </div>
-          {/* <div className="z-10">
-            <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-              <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
-                <div className="flex items-center justify-center space-x-2">
-                  <p className="my-0 text-sm">Read</p>
-                </div>
-              </div>
-              <div className="p-5 divide-y divide-base-300">
-                <ContractReadMethods deployedContractData={deployedContractData} />
-              </div>
+          {configuredNetwork && (
+            <div className="flex items-center space-x-2">
+              <span className="text-xs font-normal text-light-gray">Network:</span>
+              <span className="text-sm font-semibold text-dark2">{configuredNetwork.name}</span>
             </div>
-          </div>
-          <div className="z-10">
-            <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-              <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
-                <div className="flex items-center justify-center space-x-2">
-                  <p className="my-0 text-sm">Write</p>
-                </div>
-              </div>
-              <div className="p-5 divide-y divide-base-300">
-                <ContractWriteMethods
-                  deployedContractData={deployedContractData}
-                  onChange={triggerRefreshDisplayVariables}
-                />
-              </div>
-            </div>
-          </div> */}
+          )}
+        </div>
+        {/* 第二个卡片 */}
+        <div className="flex flex-col p-2.5 space-y-1 bg-card shadow-card rounded-2xl">
+          <ContractVariables
+            refreshDisplayVariables={refreshDisplayVariables}
+            deployedContractData={deployedContractData}
+          />
+        </div>
+      </div>
+      {/* 中间主要区域 */}
+      <div className="flex flex-col col-span-1 gap-6 lg:col-span-2">
+        <p>
+          <b>Tag:</b> {itemId}
+          <br></br>
+          <b>Tag Format:</b>{" "}
+          {JSON.stringify({
+            keyword_1: "keyword_1",
+            keyword_2: "keyword_2",
+            keyword_3: "keyword_3",
+            keyword_4: "keyword_4",
+            keyword_5: "keyword_5",
+          })}
+          <br></br>
+          <b>Content:</b> TODO
+        </p>
+        <div className="flex items-center space-x-2">
+          <input
+            type="text"
+            onChange={e => {
+              setTag(e.target.value);
+            }}
+            placeholder="Enter your text"
+            className="px-4 py-2 border rounded-l-lg w-96 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <button
+            onClick={() => {
+              tagItem(itemId, tag);
+            }}
+            className="px-4 py-2 text-white transition-colors bg-blue-500 rounded-r-lg hover:bg-blue-700"
+          >
+            Tag it
+          </button>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { useLocalStorage } from "usehooks-ts";
+import { Footer2 } from "~~/components/Footer2";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { ContractUIForBodhiTagger } from "~~/components/scaffold-eth";
 import { ContractName } from "~~/utils/scaffold-eth/contract";
@@ -36,16 +37,18 @@ const Tag: NextPage = () => {
   return (
     <>
       <MetaHeader title="Tag Item | MoveSpace" description="Tag MoveSpace Items in Easy Way" />
+      <div className="flex flex-col pt-20 mx-auto w-content font-poppins">
         {contractNames.length === 0 && <p className="text-3xl mt-14">No contracts found!</p>}
         {contractName === "bodhi" &&
           contractNames.map(contractName => (
-                  <ContractUIForBodhiTagger
-                    key={contractName}
-                    contractName={contractName}
-                    itemId={itemId}
-                    className={contractName === selectedContract ? "" : "hidden"}
-                  />
+            <ContractUIForBodhiTagger
+              key={contractName}
+              contractName={contractName}
+              itemId={itemId}
+              className={contractName === selectedContract ? "" : "hidden"}
+            />
           ))}
+        <Footer2 />
       </div>
     </>
   );
