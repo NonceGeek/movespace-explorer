@@ -36,6 +36,16 @@ export const ContractUIForBodhiTagger = ({
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
 
   const [tag, setTag] = useState("");
+  const [tags, setTags] = useState([
+    "String uuid xxx",
+    "string meta data xxx",
+    "KEYWORD 3",
+    "KEYWORD 4",
+    "String uuid xxx",
+    "string meta data xxx",
+    "KEYWORD 3",
+    "KEYWORD 4",
+  ]);
 
   /* smart contract interactor */
   const { writeAsync } = useScaffoldContractWrite({
@@ -54,16 +64,14 @@ export const ContractUIForBodhiTagger = ({
     writeAsync();
   };
 
-  const tags = [
-    "String uuid xxx",
-    "string meta data xxx",
-    "KEYWORD 3",
-    "KEYWORD 4",
-    "String uuid xxx",
-    "string meta data xxx",
-    "KEYWORD 3",
-    "KEYWORD 4",
-  ];
+  const addToTags = () => {
+    if (!tag) {
+      return;
+    }
+
+    setTags([tag, ...tags]);
+    setTag("");
+  };
 
   if (deployedContractLoading) {
     return (
@@ -134,6 +142,7 @@ export const ContractUIForBodhiTagger = ({
           <div className="flex items-center space-x-6">
             <input
               type="text"
+              value={tag}
               onChange={e => {
                 setTag(e.target.value);
               }}
@@ -141,9 +150,7 @@ export const ContractUIForBodhiTagger = ({
               className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark dark:text-dark3"
             />
             <div
-              onClick={() => {
-                tagItem(itemId, tag);
-              }}
+              onClick={addToTags}
               className="px-4 py-2 text-sm font-medium text-white rounded-full cursor-pointer bg-gradFrom dark:text-dark"
             >
               Add
