@@ -1,11 +1,17 @@
 type GradientBorderButtonProps = {
   btnText: string;
   disabled?: boolean;
+  smallSize?: boolean;
   className?: string;
   onClick?: () => void;
 };
 
-export const GradientBorderButton = ({ btnText, disabled = false, onClick }: GradientBorderButtonProps) => {
+export const GradientBorderButton = ({
+  btnText,
+  disabled = false,
+  smallSize = false,
+  onClick,
+}: GradientBorderButtonProps) => {
   const onBtnClick = () => {
     if (!disabled) {
       !!onClick && onClick();
@@ -14,9 +20,9 @@ export const GradientBorderButton = ({ btnText, disabled = false, onClick }: Gra
 
   return (
     <div
-      className={`relative flex items-center justify-center h-10 overflow-hidden font-semibold rounded-full ${
+      className={`relative flex items-center justify-center overflow-hidden font-semibold rounded-full ${
         !disabled && "cursor-pointer"
-      }`}
+      } ${smallSize ? "text-sm h-9" : "h-10"}`}
       onClick={onBtnClick}
     >
       <div
@@ -25,9 +31,9 @@ export const GradientBorderButton = ({ btnText, disabled = false, onClick }: Gra
         }`}
       ></div>
       <div
-        className={`box-border z-10 flex items-center justify-center h-full px-8 border-2 border-transparent rounded-full bg-clip-padding bg-light select-none dark:bg-dark ${
+        className={`box-border z-10 flex items-center justify-center h-full border-2 border-transparent rounded-full bg-clip-padding bg-light select-none dark:bg-dark ${
           !disabled ? "dark:text-white" : "text-gray-300 dark:text-gray-600"
-        }`}
+        } ${smallSize ? "px-4" : "px-8"}`}
       >
         {btnText}
       </div>
