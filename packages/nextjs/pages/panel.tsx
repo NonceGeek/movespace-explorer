@@ -91,7 +91,7 @@ const Panel: NextPage = () => {
         const res = await refetch();
         await console.log("refetch:", res);
         // TODO: put res.data[0] into tags
-        return { ...item, tags: res.data }; 
+        return { ...item, tags: res.data[1] };
       }),
     );
 
@@ -289,10 +289,10 @@ const Panel: NextPage = () => {
                 <span className="w-[50px]">ID</span>
                 <span className="w-[100px] mr-[70px]">UUID</span>
                 <span className="w-[300px] mr-[100px]">CONTENT</span>
-                <span className="w-[200px]">METADATA</span>
-                <span className="w-[100px]">Tag Now</span>
+                <span className="w-[300px]">METADATA</span>
+                <span className="w-[200px]">Tag Now</span>
               </div>
-              <span className="pr-3">IF TAG?</span>
+              <span className="pr-3">TAG IT</span>
             </div>
             <div className="w-full h-px mt-5 bg-gray-100"></div>
             {/* ItemList Body */}
@@ -316,14 +316,17 @@ const Panel: NextPage = () => {
                         {item.data}
                       </span>
                     </span>
-                    <span className="w-[200px] relative group">
+                    <span className="w-[300px] relative group">
                       <span className="line-clamp-1">{JSON.stringify(item.metadata)}</span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                         {JSON.stringify(item.metadata)}
                       </span>
                     </span>
-                    <span className="w-[100px] relative group">
+                    <span className="w-[200px] relative group">
                       <span className="line-clamp-1">{JSON.stringify(item.tags)}</span>
+                      <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
+                        {JSON.stringify(item.tags)}
+                      </span>
                     </span>
                   </div>
                   <TagButton tagged={item.tagged} />
