@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 
@@ -39,7 +40,9 @@ export const Header = () => {
         />
         <ToggleDarkModeButton />
       </div>
-      <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
+      <Link href="/">
+        <Image src="/assets/logo.png" width={203} height={40} alt="logo" />
+      </Link>
       <div className="flex items-center space-x-6">
         <RainbowKitCustomConnectButton />
         <FaucetButton />
