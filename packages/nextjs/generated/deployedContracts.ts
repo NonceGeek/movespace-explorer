@@ -5,7 +5,7 @@ const contracts = {
       name: "bsc",
       contracts: {
         BodhiItemTagger: {
-          address: "0x2e19198e4680f89a67cccae83c9a027f0669b5dd",
+          address: "0x1D20e23c14aB6997Df6DBbb70320E545053D3Ba8",
           abi: [
             {
               inputs: [
@@ -102,6 +102,17 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [{ internalType: "string", name: "", type: "string" }],
+              name: "uuidTags",
+              outputs: [
+                { internalType: "string", name: "itemId", type: "string" },
+                { internalType: "string", name: "metadata", type: "string" },
+                { internalType: "address", name: "creator", type: "address" },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
               inputs: [],
               name: "vectorDescription",
               outputs: [{ internalType: "string", name: "", type: "string" }],
@@ -118,7 +129,7 @@ const contracts = {
           ],
         },
         GalaxeItemTagger: {
-          address: "0x15875fb016b05c047523820601ab8b23f0f02d5f",
+          address: "0x6fC40Eb201F1229F2Ef66f899703fE2Eb647C2f4",
           abi: [
             {
               inputs: [
@@ -206,6 +217,17 @@ const contracts = {
             {
               inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
               name: "tags",
+              outputs: [
+                { internalType: "string", name: "itemId", type: "string" },
+                { internalType: "string", name: "metadata", type: "string" },
+                { internalType: "address", name: "creator", type: "address" },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [{ internalType: "string", name: "", type: "string" }],
+              name: "uuidTags",
               outputs: [
                 { internalType: "string", name: "itemId", type: "string" },
                 { internalType: "string", name: "metadata", type: "string" },
