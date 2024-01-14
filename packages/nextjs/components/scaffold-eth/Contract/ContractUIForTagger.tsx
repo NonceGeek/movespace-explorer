@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { ContractVariables } from "./ContractVariables";
 import { parseEther } from "viem";
 import { GradientBorderButton } from "~~/components/GradientBorderButton";
@@ -35,7 +35,10 @@ export const ContractUIForTagger = ({
 
   const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
 
+  // 输入框中的 tag
   const [tag, setTag] = useState("");
+  // 标记 tagJson 是否已经设置，已设置才调用 writeAsync
+  const [isTagSet, setIsTagSet] = useState(false);
   const [tags, setTags] = useState([
     "String uuid xxx",
     "string meta data xxx",
@@ -46,22 +49,36 @@ export const ContractUIForTagger = ({
     "KEYWORD 3",
     "KEYWORD 4",
   ]);
+  // writeAsync 的参数，保存规范化后的 tag 列表
+  const [tagJson, setTagJson] = useState("");
+
+  useEffect(() => {
+    if (isTagSet) {
+      writeAsync();
+    }
+  }, [isTagSet]);
 
   /* smart contract interactor */
   const { writeAsync } = useScaffoldContractWrite({
     contractName: contractName,
     functionName: "tagItem",
-    args: [itemId, tag],
+    args: [itemId, tagJson],
     value: parseEther("0"),
     blockConfirmations: 1,
     onBlockConfirmation: txnReceipt => {
       console.log("Transaction blockHash", txnReceipt.blockHash);
+      setIsTagSet(false);
     },
   });
 
-  const tagItem = (itemId: string, theTag: string) => {
-    setTag(theTag);
-    writeAsync();
+  const tagItem = () => {
+    // iterate over tags to build json with format: { keyword_1: tagName_1, keyword_2: tagName_2, ... }
+    const tempTagJson: { [key: string]: string } = {};
+    tags.forEach((tag, index) => {
+      tempTagJson[`keyword_${index + 1}`] = tag;
+    });
+    setTagJson(JSON.stringify(tempTagJson));
+    setIsTagSet(true);
   };
 
   const addToTags = () => {
@@ -139,7 +156,7 @@ export const ContractUIForTagger = ({
         </div>
         <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl dark:bg-dark-deep">
           <span className="font-semibold text-dark-gray3">tagItem</span>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-3">
             <input
               type="text"
               value={tag}
@@ -147,7 +164,7 @@ export const ContractUIForTagger = ({
                 setTag(e.target.value);
               }}
               placeholder="Enter your text"
-              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark dark:text-dark3"
+              className="px-4 py-2 text-sm font-semibold w-96 bg-light focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark dark:text-dark3"
             />
             <div
               onClick={addToTags}
@@ -155,7 +172,7 @@ export const ContractUIForTagger = ({
             >
               Add
             </div>
-            <GradientBorderButton btnText="Submit" smallSize={true} />
+            <GradientBorderButton onClick={tagItem} btnText="Submit" smallSize={true} />
           </div>
           <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card dark:bg-[#1B1B1B]">
             {tags.map((tag, index) => (
