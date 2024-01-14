@@ -143,7 +143,7 @@ export const ContractUIForTagger = ({
               onClick={() => {
                 tagItem(itemId, tag);
               }}
-              className="px-4 py-2 text-sm font-medium text-white rounded cursor-pointer bg-gradient-to-r from-gradFrom to-gradTo dark:text-dark"
+              className="px-4 py-2 text-sm font-medium text-white rounded-full cursor-pointer bg-gradFrom dark:text-dark"
             >
               Add
             </div>
@@ -151,7 +151,7 @@ export const ContractUIForTagger = ({
           <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card dark:bg-[#1B1B1B]">
             {tags.map((tag, index) => (
               <span
-                className="flex items-center px-4 py-2 space-x-2 text-sm font-medium text-white rounded bg-gradFrom dark:text-dark"
+                className="flex items-center px-4 py-2 space-x-2 text-sm font-medium text-white rounded-full bg-gradFrom dark:text-dark"
                 key={index}
               >
                 <span>{tag}</span>
