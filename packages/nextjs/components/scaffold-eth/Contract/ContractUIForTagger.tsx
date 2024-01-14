@@ -137,7 +137,7 @@ export const ContractUIForTagger = ({
                 setTag(e.target.value);
               }}
               placeholder="Enter your text"
-              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark"
+              className="px-4 py-2 text-sm font-semibold bg-light w-96 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-dark dark:text-dark3"
             />
             <div
               onClick={() => {
