@@ -12,52 +12,52 @@ import { SvgSelectDown2 } from "~~/components/svg/SelectDown2";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
-const sampleItem = {
-  uuid: "4e2f059f-391d-4fa8-9a8d-2732ae0cc7ca",
-  content: "Bitcoin: A peer-to-peer electronic cash system",
-  metadata:
-    "Consequat minim eu in id consectetur labore. Ad proident quis nisi officia aliqua sint aliqua culpa incididunt est occaecat in cupidatat commodo.",
-};
-// const links = [
-//   {
-//     text: "github_link",
-//   },
-//   {
-//     text: "TAGGtagger_dapp",
-//   },
-//   {
-//     text: "TAGGtagger_dapp",
-//   },
-//   {
-//     text: "tagger_Smart_Contract",
-//   },
-// ];
 
 const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [text, setText] = useState("Select a DataSet");
-  const [dataLoaded, setDataLoaded] = useState(false);
-  // const [btnText, setBtnText] = useState("Open dataset");
   const [datasets, setDatasets] = useState<any>([]);
   const [dataset, setDataset] = useState<any>({});
   const [items, setItems] = useState<any[]>([]);
-
   const [links, setLinks] = useState<any[]>([]);
-
   const [activeElement, setActiveElement] = useState<string | null>("1");
-
-  // useEffect(() => {
-  //   if (dataLoaded) {
-  //     setBtnText("Collapse items");
-  //   }
-  // }, [dataLoaded]);
   const [uuid, setUuid] = useState<string>("");
   const { data, refetch } = useScaffoldContractRead({
     contractName: "GalaxeItemTagger",
     functionName: "uuidTags",
     args: [uuid],
   });
+
+  useEffect(() => {
+    if (datasets.length === 0) {
+      getDatasets();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(dataset).length > 0) {
+      setLinks([
+        {
+          text: "tagger_smart_contract",
+          link: dataset.tagger_contracts.bsc,
+        },
+        {
+          text: "bucket_on_greenfield",
+          link: dataset.greenfield_bucket,
+        },
+      ]);
+    }
+  }, [dataset]);
+
+  async function getDatasets() {
+    const response = await fetch("https:///query-datasets.deno.dev", {
+      method: "GET",
+    });
+    const resp = await response.json();
+    console.log("datasets", resp);
+    setDatasets(resp);
+  }
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
@@ -88,7 +88,7 @@ const Panel: NextPage = () => {
       resp.map(async (item: any) => {
         setUuid(item.uuid);
         console.log("uuid", uuid);
-        const res = await refetch();
+        const res: any = await refetch();
         await console.log("refetch:", res);
         // TODO: put res.data[0] into tags
         return { ...item, tags: res.data[1] };
@@ -99,29 +99,9 @@ const Panel: NextPage = () => {
     return;
   }
 
-  async function getDatasets() {
-    const response = await fetch("https:///query-datasets.deno.dev", {
-      method: "GET",
-    });
-    const resp = await response.json();
-    console.log("datasets", resp);
-    await setDatasets(resp);
-    return;
-  }
-
   async function getDataset(dataset_name: string) {
     const dataset = datasets.find((item: { name: string }) => item.name === dataset_name);
     setDataset(dataset);
-    setLinks([
-      {
-        text: "tagger_smart_contract",
-        link: dataset.tagger_contracts.bsc,
-      },
-      {
-        text: "bucket_on_greenfield",
-        link: dataset.greenfield_bucket,
-      },
-    ]);
   }
 
   const onGradientBorderButtonClick = async () => {
@@ -130,20 +110,8 @@ const Panel: NextPage = () => {
     // TODO: 2. fetch data of Dataset;
     // TODO: 3. fetch tagger for smart contract;
     getDataset(text);
-    await getItems(text, 0, 10);
+    await getItems(text, 0, 9);
   };
-
-  // const mockFetchData = async () => {
-  //   // iterate 8 times with for loop
-  //   const mockData = [];
-  //   for (let i = 0; i < 8; i++) {
-  //     mockData.push({
-  //       ...sampleItem,
-  //       tagged: Math.random() >= 0.5,
-  //     });
-  //   }
-  //   setItems(mockData);
-  // };
 
   const TagButton = ({ tagged }: { tagged: boolean }) => {
     return (
@@ -159,11 +127,6 @@ const Panel: NextPage = () => {
     );
   };
 
-  type PaginationProps = {
-    text: string;
-    active?: boolean;
-  };
-
   function selectDataset(dataset_name: string) {
     switch (dataset_name) {
       case "bodhi-text-contents":
@@ -175,24 +138,27 @@ const Panel: NextPage = () => {
     }
   }
 
-  function showItems(text: string) {
-    // TODO: Calculate the Items then fetch all.
-    setActiveElement(text);
-  }
-  const Element = ({ text, active }: PaginationProps) => (
+  type PaginationProps = {
+    text: string;
+    active?: boolean;
+    onClick?: (cursor: number) => void;
+  };
+
+  const Element = ({ text, active, onClick }: PaginationProps) => (
     <span
-      className={`flex items-center justify-center w-8 h-8 bg-[#F5F5F5] border border-[#EEEEEE] rounded dark:bg-[#171717] dark:border-[#1E1E1E] ${
+      className={`flex items-center justify-center w-8 h-8 bg-[#F5F5F5] border border-[#EEEEEE] rounded cursor-pointer dark:bg-[#171717] dark:border-[#1E1E1E] ${
         active && "bg-gradient-to-r from-gradFrom to-gradTo text-white"
       }`}
-      onClick={() => showItems(text)}
+      onClick={() => onClick && onClick(parseInt(text, 10))}
     >
       {text}
     </span>
   );
 
-  useEffect(() => {
-    getDatasets();
-  }, []);
+  const toPage = (cursor: number) => {
+    setActiveElement(cursor.toString());
+    getItems(text, cursor, 9);
+  };
 
   return (
     <div className="flex flex-col mx-auto w-content font-poppins">
@@ -241,7 +207,7 @@ const Panel: NextPage = () => {
         />
       </div>
       {/* Item Links */}
-      {dataLoaded && (
+      {links.length > 0 && (
         <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
           <span className="text-2xl font-bold dark:text-light-deep">VIEW DATA ITEMS IN BUCKET</span>
           <span className="capitalize text-gray1">{dataset.description}</span>
@@ -290,9 +256,9 @@ const Panel: NextPage = () => {
                 <span className="w-[100px] mr-[70px]">UUID</span>
                 <span className="w-[300px] mr-[100px]">CONTENT</span>
                 <span className="w-[300px]">METADATA</span>
-                <span className="w-[200px]">Tag Now</span>
+                <span className="w-[200px]">Tag</span>
               </div>
-              <span className="pr-3">TAG IT</span>
+              <span className="pr-3">Action</span>
             </div>
             <div className="w-full h-px mt-5 bg-gray-100"></div>
             {/* ItemList Body */}
@@ -337,16 +303,17 @@ const Panel: NextPage = () => {
         )}
         {/* Table Footer */}
         <div className="flex items-center justify-between mx-14">
-          <span className="text-lg font-medium text-[#B5B7C0]">Pages</span>
+          <span className="text-lg font-medium text-[#B5B7C0] opacity-0">Pages</span>
           {/* Pagination */}
           {/* <Pagination /> */}
           <div className="flex items-center justify-between space-x-4 dark:text-[#404B52]">
             <Element text={"<"} />
-
-            <Element text={"1"} active={activeElement === "1"} />
-            <Element text={"2"} active={activeElement === "2"} />
-            <Element text={"3"} active={activeElement === "3"} />
-            <Element text={"4"} active={activeElement === "4"} />
+            <Element text={"1"} active={activeElement === "1"} onClick={toPage} />
+            <Element text={"2"} active={activeElement === "2"} onClick={toPage} />
+            <Element text={"3"} active={activeElement === "3"} onClick={toPage} />
+            <Element text={"4"} active={activeElement === "4"} onClick={toPage} />
+            <Element text={"5"} active={activeElement === "5"} onClick={toPage} />
+            <Element text={"6"} active={activeElement === "6"} onClick={toPage} />
             <span>...</span>
             <Element text={"40"} />
             <Element text={">"} />
