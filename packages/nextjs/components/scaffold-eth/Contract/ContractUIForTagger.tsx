@@ -22,13 +22,14 @@ type ContractUIProps = {
  * TODO: Bodhi should be specific.
  **/
 
-export const ContractUIForBodhiTagger = ({
+export const ContractUIForTagger = ({
   contractName,
   itemId,
   content = "",
   metadata = "",
   className = "",
 }: ContractUIProps) => {
+
   const [refreshDisplayVariables] = useReducer(value => !value, false);
   const configuredNetwork = getTargetNetwork();
 
@@ -82,6 +83,7 @@ export const ContractUIForBodhiTagger = ({
 
   return (
     <div className={`w-full flex space-x-10 ${className}`}>
+      
       {/* 左侧栏 */}
       <div className="flex flex-col space-y-6 w-card shrink-0">
         {/* 第一个卡片 */}
