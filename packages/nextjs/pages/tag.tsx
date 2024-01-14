@@ -31,7 +31,6 @@ const Tag: NextPage = () => {
         return "galxe_campaigns";
       default:
         return "opps";
-
     }
   }
   async function getItem(uuid: string, dataset_name: string) {
@@ -56,11 +55,11 @@ const Tag: NextPage = () => {
 
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
-    const itemId = queryParameters.get("item_id");
-    const contractN = queryParameters.get("contract_name");
-    setItemId(itemId);
+    const itemIdInUrl = queryParameters.get("item_id") as string;
+    const contractN = queryParameters.get("contract_name") as string;
+    setItemId(itemIdInUrl);
     setContractName(contractN);
-    getItem(itemId, contractN);
+    getItem(itemIdInUrl, contractN);
   }, []);
 
   useEffect(() => {
@@ -74,28 +73,26 @@ const Tag: NextPage = () => {
       <MetaHeader title="Tag Item | MoveSpace" description="Tag MoveSpace Items in Easy Way" />
       <div className="flex flex-col pt-20 mx-auto w-content font-poppins">
         {contractNames.length === 0 && <p className="text-3xl mt-14">No contracts found!</p>}
-        {contractName === "bodhi" &&
-          (
-            <ContractUIForBodhiTagger
-              key="BodhiItemTagger"
-              contractName="BodhiItemTagger"
-              itemId={itemId}
-              content={data}
-              metadata={metadata}
-              className="BodhiItemTagger"
-            />
-          )}
-        {contractName === "galxe-campaigns" &&
-          (
-            <ContractUIForTagger
-              key="GalaxeItemTagger"
-              contractName="GalaxeItemTagger"
-              itemId={itemId}
-              content={data}
-              metadata={metadata}
-              className="GalaxeItemTagger"
-            />
-          )}
+        {contractName === "bodhi" && (
+          <ContractUIForBodhiTagger
+            key="BodhiItemTagger"
+            contractName="BodhiItemTagger"
+            itemId={itemId as string}
+            content={data}
+            metadata={metadata}
+            className="BodhiItemTagger"
+          />
+        )}
+        {contractName === "galxe-campaigns" && (
+          <ContractUIForTagger
+            key="GalaxeItemTagger"
+            contractName="GalaxeItemTagger"
+            itemId={itemId as string}
+            content={data}
+            metadata={metadata}
+            className="GalaxeItemTagger"
+          />
+        )}
         <Footer2 />
       </div>
     </>
