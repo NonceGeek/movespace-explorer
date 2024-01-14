@@ -117,18 +117,6 @@ export const ContractUIForBodhiTagger = ({
             <span className="font-semibold">Tag:</span>
             <span>{itemId}</span>
           </span>
-          {/* <span className="flex flex-col space-x-2">
-            <span className="font-semibold">Tag Format:</span>
-            <span className="break-all">
-              {JSON.stringify({
-                keyword_1: "keyword_1",
-                keyword_2: "keyword_2",
-                keyword_3: "keyword_3",
-                keyword_4: "keyword_4",
-                keyword_5: "keyword_5",
-              })}
-            </span>
-          </span> */}
           <span className="flex items-center space-x-2">
             <span className="font-semibold">Content:</span>
             <span>{content}</span>

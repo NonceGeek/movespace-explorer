@@ -29,7 +29,6 @@ export const ContractUIForTagger = ({
   metadata = "",
   className = "",
 }: ContractUIProps) => {
-
   const [refreshDisplayVariables] = useReducer(value => !value, false);
   const configuredNetwork = getTargetNetwork();
 
@@ -83,7 +82,6 @@ export const ContractUIForTagger = ({
 
   return (
     <div className={`w-full flex space-x-10 ${className}`}>
-      
       {/* 左侧栏 */}
       <div className="flex flex-col space-y-6 w-card shrink-0">
         {/* 第一个卡片 */}
@@ -119,18 +117,6 @@ export const ContractUIForTagger = ({
             <span className="font-semibold">Tag:</span>
             <span>{itemId}</span>
           </span>
-          {/* <span className="flex flex-col space-x-2">
-            <span className="font-semibold">Tag Format:</span>
-            <span className="break-all">
-              {JSON.stringify({
-                keyword_1: "keyword_1",
-                keyword_2: "keyword_2",
-                keyword_3: "keyword_3",
-                keyword_4: "keyword_4",
-                keyword_5: "keyword_5",
-              })}
-            </span>
-          </span> */}
           <span className="flex items-center space-x-2">
             <span className="font-semibold">Content:</span>
             <span>{content}</span>
