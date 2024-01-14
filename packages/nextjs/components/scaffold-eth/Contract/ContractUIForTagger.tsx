@@ -1,6 +1,7 @@
 import { useReducer, useState } from "react";
 import { ContractVariables } from "./ContractVariables";
 import { parseEther } from "viem";
+import { GradientBorderButton } from "~~/components/GradientBorderButton";
 import { Spinner } from "~~/components/assets/Spinner";
 import { Address, Balance } from "~~/components/scaffold-eth";
 import { SvgClose } from "~~/components/svg/Close";
@@ -147,6 +148,7 @@ export const ContractUIForTagger = ({
             >
               Add
             </div>
+            <GradientBorderButton btnText="Submit" smallSize={true} />
           </div>
           <div className="flex flex-wrap items-center gap-2 p-4 pb-12 rounded bg-card dark:bg-[#1B1B1B]">
             {tags.map((tag, index) => (
