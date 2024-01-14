@@ -17,41 +17,76 @@ const sampleItem = {
   metadata:
     "Consequat minim eu in id consectetur labore. Ad proident quis nisi officia aliqua sint aliqua culpa incididunt est occaecat in cupidatat commodo.",
 };
-const links = [
-  {
-    text: "github_link",
-  },
-  {
-    text: "TAGGtagger_dapp",
-  },
-  {
-    text: "TAGGtagger_dapp",
-  },
-  {
-    text: "tagger_Smart_COntract",
-  },
-];
+// const links = [
+//   {
+//     text: "github_link",
+//   },
+//   {
+//     text: "TAGGtagger_dapp",
+//   },
+//   {
+//     text: "TAGGtagger_dapp",
+//   },
+//   {
+//     text: "tagger_Smart_Contract",
+//   },
+// ];
 
 const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [text, setText] = useState("Select a DataSet");
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [btnText, setBtnText] = useState("Open dataset");
+  // const [btnText, setBtnText] = useState("Open dataset");
+  const [datasets, setDatasets] = useState<any>([]);
+  const [dataset, setDataset] = useState<any>({});
   const [items, setItems] = useState<any[]>([]);
 
-  useEffect(() => {
-    if (dataLoaded) {
-      setBtnText("Collapse items");
-    }
-  }, [dataLoaded]);
+  const [links, setLinks] = useState<any[]>([]);
+
+  // useEffect(() => {
+  //   if (dataLoaded) {
+  //     setBtnText("Collapse items");
+  //   }
+  // }, [dataLoaded]);
 
   const onSelectOptionClick = (index: number) => {
     setSelectedOption(index);
+    console.log(selectOptions[index]);
     setText(selectOptions[index]);
   };
 
+  async function getDatasets() {
+    const response = await fetch("https:///query-datasets.deno.dev", {
+      method: "GET",
+    });
+    const resp = await response.json();
+    console.log("datasets", resp);
+    await setDatasets(resp);
+    return;
+  }
+
+  async function getDataset(dataset_name: string) {
+    const dataset = datasets.find((item: { name: string }) => item.name === dataset_name)
+    setDataset(dataset);
+    setLinks([
+      {
+        text: "tagger_smart_contract",
+        link: dataset.tagger_contracts.bsc,
+      },
+      {
+        text: "bucket_on_greenfield",
+        link: dataset.greenfield_bucket,
+      },
+    ]);
+  }
+
   const onGradientBorderButtonClick = async () => {
+    // DONE: 1. fetch info of Dataset;
+
+    // TODO: 2. fetch data of Dataset;
+    // TODO: 3. fetch tagger for smart contract;
+    getDataset(text);
     if (!dataLoaded) {
       await mockFetchData();
       setDataLoaded(true);
@@ -84,6 +119,10 @@ const Panel: NextPage = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    getDatasets();
+  }, []);
 
   return (
     <div className="flex flex-col mx-auto w-content font-poppins">
@@ -126,7 +165,7 @@ const Panel: NextPage = () => {
           onSelectOptionClick={onSelectOptionClick}
         />
         <GradientBorderButton
-          btnText={btnText}
+          btnText="Open Dataset"
           disabled={selectedOption === null}
           onClick={onGradientBorderButtonClick}
         />
@@ -135,12 +174,14 @@ const Panel: NextPage = () => {
       {dataLoaded && (
         <div className="flex flex-col items-center pt-16 mx-auto space-y-5">
           <span className="text-2xl font-bold dark:text-light-deep">VIEW DATA ITEMS IN BUCKET</span>
-          <span className="capitalize text-gray1">whitepapers for all the projects</span>
+          <span className="capitalize text-gray1">{dataset.description}</span>
           <div className="flex items-center space-x-5 text-sm font-medium uppercase text-gray1">
             {links.map((linkItem, index) => (
               <div className="flex items-center space-x-1.5 cursor-pointer" key={index}>
                 <SvgLink />
-                <span className="underline underline-offset-2">{linkItem.text}</span>
+                <a href={`https://bscscan.com/address/${linkItem.link}`} target="_blank">
+                  <span className="underline underline-offset-2">{linkItem.text}</span>
+                </a>
               </div>
             ))}
           </div>
@@ -176,12 +217,13 @@ const Panel: NextPage = () => {
               {/* ItemList Header */}
               <div className="flex items-center justify-between mx-12 text-gray-400 uppercase dark:text-gray3">
                 <div className="flex">
-                  <span className="w-[220px]">ID</span>
+                  <span className="w-[50px]">ID</span>
                   <span className="w-[100px] mr-[70px]">UUID</span>
-                  <span className="w-[100px] mr-[100px]">CONTENT</span>
-                  <span className="w-[360px]">METADATA</span>
+                  <span className="w-[300px] mr-[100px]">CONTENT</span>
+                  <span className="w-[200px]">METADATA</span>
+                  <span className="w-[100px]">Tag Now</span>
                 </div>
-                <span className="pr-3">TAG ITEMS</span>
+                <span className="pr-3">IF TAG?</span>
               </div>
               <div className="w-full h-px mt-5 bg-gray-100"></div>
               {/* ItemList Body */}
@@ -192,24 +234,30 @@ const Panel: NextPage = () => {
                     key={index}
                   >
                     <div className="flex items-center">
-                      <span className="w-[220px]">{index + 1}</span>
+                      <span className="w-[50px]">{index + 1}</span>
                       <span className="w-[100px] mr-[70px] relative group">
                         <span className="line-clamp-1">{item.uuid}</span>
                         <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.uuid}
                         </span>
                       </span>
-                      <span className="w-[100px] mr-[100px] relative group">
+                      <span className="w-[300px] mr-[100px] relative group">
                         <span className="line-clamp-1">{item.content}</span>
                         <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.content}
                         </span>
                       </span>
-                      <span className="w-[360px] relative group">
+                      {/* <span className="w-[100px] relative group">
                         <span className="line-clamp-1">{item.metadata}</span>
                         <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                           {item.metadata}
                         </span>
+                      </span> */}
+                      <span className="w-[200px] relative group">
+                        <span className="line-clamp-1">DDDDDDD</span>
+                      </span>
+                      <span className="w-[100px] relative group">
+                        <span className="line-clamp-1">DDDDDDD</span>
                       </span>
                     </div>
                     <TagButton tagged={item.tagged} />
