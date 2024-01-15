@@ -16,7 +16,7 @@ const selectOptions = ["galxe-campaigns", "bodhi-text-contents"];
 const Panel: NextPage = () => {
   const [showSelect, setShowSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [text, setText] = useState("Select a DataSet");
+  const [text, setText] = useState("Select a dataset");
   const [datasets, setDatasets] = useState<any>([]);
   const [dataset, setDataset] = useState<any>({});
   const [items, setItems] = useState<any[]>([]);
@@ -173,10 +173,8 @@ const Panel: NextPage = () => {
           <div className="flex flex-col space-y-9">
             {/* Intro Text */}
             <div className="flex flex-col space-y-6 dark:text-white">
-              <div className="text-6xl font-medium tracking-[0.6px] uppercase">
-                Label data for AI training and earn rewards!
-              </div>
-              <div className="text-4xl tracking-[0.6px]">MoveSpace AI data labeler platform</div>
+              <div className="text-6xl font-medium tracking-[0.6px]">Label, review, rate & earn</div>
+              <div className="text-4xl tracking-[0.6px]">MoveSpace AI label platform</div>
             </div>
             <div className="w-[615px] h-px shrink-0 bg-purple-to-blue"></div>
           </div>
@@ -287,16 +285,16 @@ const Panel: NextPage = () => {
                     </span>
                     <span className="w-[300px] relative group" style={{ display: "block" }}>
                       <span className="line-clamp-1">
-                      <table>
-                        <tbody>
-                          {Object.entries(item.metadata).map(([key, value]) => (
-                            <tr key={key}>
-                              <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
-                              <td style={{ padding: "8px" }}>{value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                        <table>
+                          <tbody>
+                            {Object.entries(item.metadata).map(([key, value]) => (
+                              <tr key={key}>
+                                <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                                <td style={{ padding: "8px" }}>{value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                         <table>
@@ -313,17 +311,17 @@ const Panel: NextPage = () => {
                     </span>
 
                     <span className="w-[200px] relative group">
-                    <span className="line-clamp-1">
-                      <table>
-                        <tbody>
-                          {Object.entries(item.tags).map(([key, value]) => (
-                            <tr key={key}>
-                              <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
-                              <td style={{ padding: "8px" }}>{value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                      <span className="line-clamp-1">
+                        <table>
+                          <tbody>
+                            {Object.entries(item.tags).map(([key, value]) => (
+                              <tr key={key}>
+                                <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                                <td style={{ padding: "8px" }}>{value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                         <table>
