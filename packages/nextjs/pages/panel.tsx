@@ -84,19 +84,38 @@ const Panel: NextPage = () => {
 
     console.log("resp 3: ", resp);
     // TODO: Here is a bug, not refresh when select another dataset.
-    const itemsWithTags = await Promise.all(
-      resp.map(async (item: any) => {
-        setUuid(item.uuid);
-        console.log("uuid", uuid);
-        const res: any = await refetch();
-        await console.log("refetch:", res);
-        // TODO: put res.data[0] into tags
-        if (res.data[1] === "") {
-          return { ...item, tags: {} };
+    // const itemsWithTags = await Promise.all(
+    //   resp.map(async (item: any) => {
+    //     setUuid("6ff3a14e-8082-4056-9f62-96d7ef70bde8");
+    //     // setUuid(item.uuid);
+    //     console.log("uuid", item.uuid);
+    //     const res: any = await refetch();
+    //     await console.log("refetch:", res);
+    //     // TODO: put res.data[0] into tags
+    //     if (res.data[1] === "") {
+    //       return { ...item, tags: {} };
+    //     }
+    //     return { ...item, tags: JSON.parse(res.data[1]) };
+    //   }),
+    // );
+    const itemsWithTags = [];
+    for (const item of resp) {
+      setUuid(item.uuid);
+      console.log("uuid", item.uuid);
+      const res = await refetch();
+      console.log("refetch:", res);
+
+      let parsedTags = {};
+      if (res.data && res.data[1] !== "") {
+        try {
+          parsedTags = JSON.parse(res.data[1]);
+        } catch (e) {
+          console.error("Error parsing tags JSON for item", item.uuid, e);
         }
-        return { ...item, tags: JSON.parse(res.data[1]) };
-      }),
-    );
+      }
+
+      itemsWithTags.push({ ...item, tags: parsedTags });
+}
 
     setItems(itemsWithTags);
     return;
