@@ -81,6 +81,12 @@ export const ContractUIForBodhiTagger = ({
     setTag("");
   };
 
+  const removeTag = (index: number) => {
+    const newTags = [...tags];
+    newTags.splice(index, 1);
+    setTags(newTags);
+  };
+
   if (deployedContractLoading) {
     return (
       <div className="mt-14">
@@ -189,7 +195,7 @@ export const ContractUIForBodhiTagger = ({
                 key={index}
               >
                 <span>{tag}</span>
-                <SvgClose className="dark:text-dark" />
+                <SvgClose className="cursor-pointer dark:text-dark" onClick={() => removeTag(index)} />
               </span>
             ))}
           </div>
