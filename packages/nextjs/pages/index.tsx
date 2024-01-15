@@ -350,11 +350,11 @@ const ETHSpace: NextPage = () => {
                           <span className="font-bold">id in vectorDB</span>
                           <span>{item.id}</span>
                         </div>
-                        <div className="items-center hidden space-x-20 group-hover:flex">
+                        <div className="flex items-center space-x-20">
                           <Link href={`/tag?contract_name=bodhi&item_id=${item.id}`}>
                             <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark3">
                               <SvgLabel />
-                              <span className="uppercase">Label this item!</span>
+                              <span>Label this item</span>
                             </span>
                           </Link>
                         </div>
@@ -366,7 +366,7 @@ const ETHSpace: NextPage = () => {
                           <span>{JSON.stringify(item.metadata)}</span>
                         </div>
                         <span>Chain Name: {item.metadata.chain_name}</span>
-                        <div className="items-center hidden space-x-20 group-hover:flex">
+                        <div className="flex items-center space-x-20">
                           <div className="flex items-center justify-between h-10 px-4 space-x-4 bg-gray-100 rounded-full w-80 search-input dark:bg-dark dark:border dark:border-dark3">
                             <div className="flex items-center flex-grow">
                               <Image src="/svg/search.svg" width={12} height={12} alt="search" />
@@ -408,7 +408,7 @@ const ETHSpace: NextPage = () => {
                           <Link href={`/tag?contract_name=galxe-campaigns&item_id=${item.id}`}>
                             <span className="flex items-center h-10 px-3 py-2 space-x-2 text-xs font-semibold border border-gray-200 border-solid rounded-full dark:border-dark3">
                               <SvgLabel />
-                              <span className="uppercase">Label this item!</span>
+                              <span>Label this item</span>
                             </span>
                           </Link>
                         </div>
