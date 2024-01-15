@@ -40,7 +40,7 @@ const Panel: NextPage = () => {
       setLinks([
         {
           text: "tagger_smart_contract",
-          link: dataset.tagger_contracts.bsc,
+          link: `https://bscscan.com/address/${dataset.tagger_contracts.bsc}`,
         },
         {
           text: "bucket_on_greenfield",
@@ -235,7 +235,7 @@ const Panel: NextPage = () => {
             {links.map((linkItem, index) => (
               <div className="flex items-center space-x-1.5 cursor-pointer" key={index}>
                 <SvgLink />
-                <a href={`https://bscscan.com/address/${linkItem.link}`} target="_blank">
+                <a href={`${linkItem.link}`} target="_blank">
                   <span className="underline underline-offset-2">{linkItem.text}</span>
                 </a>
               </div>
