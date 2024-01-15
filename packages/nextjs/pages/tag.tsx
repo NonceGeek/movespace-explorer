@@ -25,6 +25,8 @@ const Tag: NextPage = () => {
 
   function selectDataset(dataset_name: string) {
     switch (dataset_name) {
+      case "bodhi-text-contents":
+        return "bodhi_text_assets_k_v";
       case "bodhi":
         return "bodhi_text_assets_k_v";
       case "galxe-campaigns":
@@ -56,7 +58,10 @@ const Tag: NextPage = () => {
   useEffect(() => {
     const queryParameters = new URLSearchParams(window.location.search);
     const itemIdInUrl = queryParameters.get("item_id") as string;
-    const contractN = queryParameters.get("contract_name") as string;
+    let contractN = queryParameters.get("contract_name") as string;
+    if(contractN === "bodhi-text-contents") {
+      contractN = "bodhi";
+    }
     setItemId(itemIdInUrl);
     setContractName(contractN);
     getItem(itemIdInUrl, contractN);

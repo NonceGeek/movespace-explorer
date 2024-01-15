@@ -83,7 +83,7 @@ const Panel: NextPage = () => {
     const resp = await response.json();
 
     console.log("resp 3: ", resp);
-
+    // TODO: Here is a bug, not refresh when select another dataset.
     const itemsWithTags = await Promise.all(
       resp.map(async (item: any) => {
         setUuid(item.uuid);
@@ -91,7 +91,10 @@ const Panel: NextPage = () => {
         const res: any = await refetch();
         await console.log("refetch:", res);
         // TODO: put res.data[0] into tags
-        return { ...item, tags: res.data[1] };
+        if (res.data[1] === "") {
+          return { ...item, tags: {} };
+        }
+        return { ...item, tags: JSON.parse(res.data[1]) };
       }),
     );
 
@@ -107,8 +110,8 @@ const Panel: NextPage = () => {
   const onGradientBorderButtonClick = async () => {
     // DONE: 1. fetch info of Dataset;
 
-    // TODO: 2. fetch data of Dataset;
-    // TODO: 3. fetch tagger for smart contract;
+    // DONE: 2. fetch data of Dataset;
+    // DONE: 3. fetch tagger for smart contract;
     getDataset(text);
     await getItems(text, 0, 9);
   };
@@ -265,7 +268,7 @@ const Panel: NextPage = () => {
             <div className="flex flex-col mx-12">
               {items.map((item, index) => (
                 <div
-                  className="flex items-center justify-between h-20 border-b border-gray-100 dark:text-gray3"
+                  className="flex items-center justify-between h-40 border-b border-gray-100 dark:text-gray3"
                   key={index}
                 >
                   <div className="flex items-center">
@@ -276,26 +279,69 @@ const Panel: NextPage = () => {
                         {item.uuid}
                       </span>
                     </span>
-                    <span className="w-[300px] mr-[100px] relative group">
+                    <span className="w-[180px] mr-[100px] relative group">
                       <span className="line-clamp-1">{item.data}</span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
                         {item.data}
                       </span>
                     </span>
-                    <span className="w-[300px] relative group">
-                      <span className="line-clamp-1">{JSON.stringify(item.metadata)}</span>
+                    <span className="w-[300px] relative group" style={{ display: "block" }}>
+                      <span className="line-clamp-1">
+                      <table>
+                        <tbody>
+                          {Object.entries(item.metadata).map(([key, value]) => (
+                            <tr key={key}>
+                              <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                              <td style={{ padding: "8px" }}>{value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      </span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
-                        {JSON.stringify(item.metadata)}
+                        <table>
+                          <tbody>
+                            {Object.entries(item.metadata).map(([key, value]) => (
+                              <tr key={key}>
+                                <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                                <td style={{ padding: "8px" }}>{value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </span>
                     </span>
+
                     <span className="w-[200px] relative group">
-                      <span className="line-clamp-1">{JSON.stringify(item.tags)}</span>
+                    <span className="line-clamp-1">
+                      <table>
+                        <tbody>
+                          {Object.entries(item.tags).map(([key, value]) => (
+                            <tr key={key}>
+                              <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                              <td style={{ padding: "8px" }}>{value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      </span>
                       <span className="absolute z-10 hidden p-2 text-xs bg-white border border-gray-600 rounded-lg min-w-48 group-hover:inline dark:bg-dark dark:border-dark-gray3">
-                        {JSON.stringify(item.tags)}
+                        <table>
+                          <tbody>
+                            {Object.entries(item.tags).map(([key, value]) => (
+                              <tr key={key}>
+                                <td style={{ padding: "8px", fontWeight: "bold" }}>{key}</td>
+                                <td style={{ padding: "8px" }}>{value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </span>
                     </span>
                   </div>
-                  <TagButton tagged={item.tagged} />
+                  <a href={`tag?item_id=${item.uuid}&contract_name=${text}`} target="_blank">
+                    <TagButton tagged={item.tagged} />
+                  </a>
                 </div>
               ))}
             </div>
@@ -309,6 +355,7 @@ const Panel: NextPage = () => {
           <div className="flex items-center justify-between space-x-4 dark:text-[#404B52]">
             <Element text={"<"} />
             <Element text={"1"} active={activeElement === "1"} onClick={toPage} />
+            {/* TODO: it's not show proper now. */}
             <Element text={"2"} active={activeElement === "2"} onClick={toPage} />
             <Element text={"3"} active={activeElement === "3"} onClick={toPage} />
             <Element text={"4"} active={activeElement === "4"} onClick={toPage} />

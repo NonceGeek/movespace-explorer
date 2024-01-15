@@ -39,16 +39,7 @@ export const ContractUIForBodhiTagger = ({
   const [tag, setTag] = useState("");
   // 标记 tagJson 是否已经设置，已设置才调用 writeAsync
   const [isTagSet, setIsTagSet] = useState(false);
-  const [tags, setTags] = useState([
-    "String uuid xxx",
-    "string meta data xxx",
-    "KEYWORD 3",
-    "KEYWORD 4",
-    "String uuid xxx",
-    "string meta data xxx",
-    "KEYWORD 3",
-    "KEYWORD 4",
-  ]);
+  const [tags, setTags] = useState([]);
   // writeAsync 的参数，保存规范化后的 tag 列表
   const [tagJson, setTagJson] = useState("");
 
@@ -151,7 +142,24 @@ export const ContractUIForBodhiTagger = ({
             <span className="font-semibold">Metadata Default:</span>
           </span>
           <span className="flex items-center space-x-2">
-            <span>{JSON.stringify(metadata)}</span>
+            <table style={{ borderCollapse: "collapse", width: "100%" }}>
+              <thead>
+                <tr>
+                  <th style={{ border: "1px solid black", padding: "8px", textAlign: "left" }}>Key</th>
+                  <th style={{ border: "1px solid black", padding: "8px", textAlign: "left" }}>Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(metadata).map(([key, value]) => (
+                  <tr key={key}>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>{key}</td>
+                    <td style={{ border: "1px solid black", padding: "8px" }}>
+                      {typeof value === "object" ? JSON.stringify(value) : value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </span>
         </div>
         <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl dark:bg-dark-deep">
