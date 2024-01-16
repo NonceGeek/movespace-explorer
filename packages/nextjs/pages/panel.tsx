@@ -115,7 +115,7 @@ const Panel: NextPage = () => {
       }
 
       itemsWithTags.push({ ...item, tags: parsedTags });
-}
+    }
 
     setItems(itemsWithTags);
     return;
@@ -221,7 +221,7 @@ const Panel: NextPage = () => {
           onSelectOptionClick={onSelectOptionClick}
         />
         <GradientBorderButton
-          btnText="Open Dataset"
+          btnText="Open dataset"
           disabled={selectedOption === null}
           onClick={onGradientBorderButtonClick}
         />
@@ -247,7 +247,7 @@ const Panel: NextPage = () => {
       <div className="flex flex-col w-full mt-20 space-y-20 bg-white rounded-md py-14 shadow-table dark:bg-dark dark:box-border dark:border-2 dark:border-dark-gray3 dark:shadow-none">
         {/* Table Header */}
         <div className="flex items-center justify-between mx-7">
-          <span className="text-2xl font-semibold uppercase dark:text-white">Items in VectorDB</span>
+          <span className="text-2xl font-semibold dark:text-white">Data items</span>
           <div className="flex items-center justify-between space-x-5">
             <div className="flex items-center h-12 p-2 space-x-2 bg-[#F9FBFF] rounded-xl dark:bg-dark">
               <SvgSearch className="text-dark-gray3" />
