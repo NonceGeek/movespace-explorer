@@ -1,11 +1,11 @@
 const contracts = {
-  56: [
+  204: [
     {
-      chainId: "56",
-      name: "bsc",
+      chainId: "204",
+      name: "opBNB",
       contracts: {
         BodhiItemTagger: {
-          address: "0x1D20e23c14aB6997Df6DBbb70320E545053D3Ba8",
+          address: "0x8AE25D52fB50241Bd355E3E7c7DbB5EA5E6Fb8e1",
           abi: [
             {
               inputs: [
@@ -129,7 +129,7 @@ const contracts = {
           ],
         },
         GalaxeItemTagger: {
-          address: "0x6fC40Eb201F1229F2Ef66f899703fE2Eb647C2f4",
+          address: "0xd55F32CAE97e200800DEfa01f7ec58E320a4c467",
           abi: [
             {
               inputs: [

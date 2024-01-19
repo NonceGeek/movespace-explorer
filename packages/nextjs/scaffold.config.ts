@@ -9,9 +9,34 @@ export type ScaffoldConfig = {
   walletAutoConnect: boolean;
 };
 
+const opBNB: chains.Chain = {
+  id: 204,
+  name: "opBNB",
+  network: "opBNB",
+  nativeCurrency: {
+    name: "BNB",
+    symbol: "BNB",
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://opbnb-mainnet-rpc.bnbchain.org"],
+    },
+    public: {
+      http: ["https://opbnb-mainnet-rpc.bnbchain.org"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "BNBScan",
+      url: "https://mainnet.opbnbscan.com",
+    },
+  },
+};
+
 const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetwork: chains.bsc,
+  targetNetwork: opBNB,
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network
