@@ -40,12 +40,16 @@ const Panel: NextPage = () => {
       setLinks([
         {
           text: "tagger_smart_contract",
-          link: `https://bscscan.com/address/${dataset.tagger_contracts.bsc}`,
+          link: `https://opbnbscan.com/address/${dataset.tagger_contracts.opbnb}`,
         },
         {
           text: "bucket_on_greenfield",
           link: dataset.greenfield_bucket,
         },
+        {
+          text: "glacier",
+          link: dataset.glacier_url,
+        }
       ]);
     }
   }, [dataset]);

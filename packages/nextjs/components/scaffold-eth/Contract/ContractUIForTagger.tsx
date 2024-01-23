@@ -42,6 +42,8 @@ export const ContractUIForTagger = ({
   const [tags, setTags] = useState([]);
   // writeAsync 的参数，保存规范化后的 tag 列表
   const [tagJson, setTagJson] = useState("");
+  const totalStars = 10;
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     if (isTagSet) {
@@ -61,6 +63,13 @@ export const ContractUIForTagger = ({
       setIsTagSet(false);
     },
   });
+
+  const rankItem = () => {
+    console.log("rankItem");
+    const tempTagJson = { rank: rating };
+    setTagJson(JSON.stringify(tempTagJson));
+    setIsTagSet(true);
+  };
 
   const tagItem = () => {
     // iterate over tags to build json with format: { keyword_1: tagName_1, keyword_2: tagName_2, ... }
@@ -102,6 +111,23 @@ export const ContractUIForTagger = ({
       </p>
     );
   }
+
+  const Star = ({ filled, onClick }) => (
+    <svg
+      onClick={onClick}
+      className={`w-6 h-6 cursor-pointer ${filled ? "text-yellow-500" : "text-gray-400"}`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M11.049 2.927L9.17 6.852a1 1 0 00.752 1.388l4.049.588-2.927 2.85a1 1 0 00-.287.885l.694 4.037-3.631-1.911a1 1 0 00-.93 0l-3.631 1.911.694-4.037a1 1 0 00-.287-.885l-2.927-2.85 4.049-.588a1 1 0 00.752-1.388L12.951 2.927a1 1 0 011.898 0z"
+      />
+    </svg>
+  );
 
   return (
     <div className={`w-full flex space-x-10 ${className}`}>
@@ -169,7 +195,18 @@ export const ContractUIForTagger = ({
           </span>
         </div>
         <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl dark:bg-dark-deep">
-          <span className="font-semibold text-dark-gray3">tagItem</span>
+          <span className="font-semibold text-dark-gray3">Rank Item</span>
+          <div className="flex">
+            {[...Array(totalStars)].map((_, index) => (
+              <Star key={index} filled={index < rating} onClick={() => setRating(index + 1)} />
+            ))}
+          </div>
+          <button onClick={rankItem} className="btn btn-sm btn-primary">
+              Rank item
+          </button>
+        </div>
+        <div className="flex flex-col p-8 space-y-4 bg-white pr-36 rounded-2xl dark:bg-dark-deep">
+          <span className="font-semibold text-dark-gray3">Tag Item</span>
           <div className="flex items-center space-x-3">
             <input
               type="text"
